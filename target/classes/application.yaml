@@ -1,0 +1,25 @@
+server:
+  #tomcat配置信息
+  tomcat:
+    uri-encoding: utf-8
+  # 访问端口
+  port: 8080
+
+spring:
+  data:
+    # mongoDB配置项
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: fileSystem
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 0
+store:
+  store-path: D:/Burning/Store
+# solr配置
+solr:
+  path: http://127.0.0.1:8983/solr/disk
+file-max-size: 1073741824

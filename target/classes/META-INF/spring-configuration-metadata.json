@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "solr",
+      "type": "com.ustc.config.SolrConfiguration",
+      "sourceType": "com.ustc.config.SolrConfiguration"
+    },
+    {
+      "name": "store",
+      "type": "com.ustc.config.StoreConfiguration",
+      "sourceType": "com.ustc.config.StoreConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "solr.path",
+      "type": "java.lang.String",
+      "sourceType": "com.ustc.config.SolrConfiguration"
+    },
+    {
+      "name": "store.store-path",
+      "type": "java.lang.String",
+      "sourceType": "com.ustc.config.StoreConfiguration"
+    }
+  ],
+  "hints": []
+}
