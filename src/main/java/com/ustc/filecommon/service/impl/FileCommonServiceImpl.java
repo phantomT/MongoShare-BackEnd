@@ -122,7 +122,7 @@ public class FileCommonServiceImpl implements FileCommonService {
             protected void initChannel(Pipeline line) {
                 // 1. 参数校验
                 line.addLast(scu.getHandler(DeleteValidateHandler.class));
-                // 2. 移动
+                // 2. 删除
                 line.addLast(scu.getHandler(DeleteUpdateHandler.class));
             }
         });

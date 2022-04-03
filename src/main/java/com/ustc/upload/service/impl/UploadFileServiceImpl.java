@@ -7,8 +7,10 @@ import com.ustc.chain.core.ResponsibleChain;
 import com.ustc.chain.handler.*;
 import com.ustc.chain.param.ChunkRequest;
 import com.ustc.chain.param.MergeRequest;
+import com.ustc.chain.param.UrlUploadRequest;
 import com.ustc.entity.Chunk;
 import com.ustc.entity.MergeFileBean;
+import com.ustc.entity.UrlUploadFileBean;
 import com.ustc.lock.Lock;
 import com.ustc.upload.dao.DiskMd5Dao;
 import com.ustc.upload.service.UploadFileService;
@@ -16,11 +18,11 @@ import com.ustc.utils.SpringContentUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author 田宝宁
@@ -66,12 +68,11 @@ public class UploadFileServiceImpl implements UploadFileService {
         return md5IsExist ? 1 : 0;
     }
 
-
     /**
      * 如果是文件上传, 锁的名字为 filemd5
      * 如果是文件夹上传, 则锁的名字为 userid-folderid-rootname
      *
-     * @param bean
+     * @param bean MergeFileBean
      */
     @Override
     public void mergeChunk(MergeFileBean bean) throws SolrServerException, IOException {
@@ -85,9 +86,9 @@ public class UploadFileServiceImpl implements UploadFileService {
         if (!bean.getRelativepath().isEmpty()) {
             String[] names = bean.getRelativepath().split("/");
             String userid = bean.getUserid();
-            String folderid = bean.getPid();
+            String folderId = bean.getPid();
 
-            lockname = userid + "-" + folderid + "-" + names[0];
+            lockname = userid + "-" + folderId + "-" + names[0];
         }
         // 上锁
         synchronized (lock.intern(lockname)) {
@@ -124,5 +125,41 @@ public class UploadFileServiceImpl implements UploadFileService {
             });
             chain.execute();
         }
+    }
+
+    @Override
+    public void uploadUrlFile(String userid, String fileUrl,
+                              String fileName, String pid) throws IOException {
+        UrlUploadFileBean urlBean = new UrlUploadFileBean(fileUrl);
+        urlBean.setFileName(fileName);
+        urlBean.setPid(pid);
+        urlBean.setUserId(userid);
+
+        String uuid = UUID.randomUUID().toString();
+        urlBean.setUuid(uuid);
+
+        UrlUploadRequest urlRequest = new UrlUploadRequest();
+        BeanUtils.copyProperties(urlBean, urlRequest);
+
+        ResponsibleChain chain = new ResponsibleChain();
+
+        chain.loadHandler(new HandlerInitializer(urlRequest, null) {
+            @Override
+            protected void initChannel(Pipeline line) {
+                // 1. 基本参数校验
+                line.addLast(scu.getHandler(UrlValidateHandler.class));
+                // 2. 校验URL是否已经上传过，修改Disk_Url
+                line.addLast(scu.getHandler(UrlIsExistHandler.class));
+                // 3. URl未上传过则下载文件，并修改Disk_Url
+                line.addLast(scu.getHandler(UrlFileStoreHandler.class));
+                // 4. 校验urlBean中的MD5是否存在，修改Disk_Md5
+                line.addLast(scu.getHandler(UrlMd5IsExistHandler.class));
+                // 5. 修改Disk_File
+                line.addLast(scu.getHandler(UrlSaveToDiskFileHandler.class));
+                // 6. 修改Disk_Chunk
+                line.addLast(scu.getHandler(UrlSaveToDiskMd5ChunkHandler.class));
+            }
+        });
+        chain.execute();
     }
 }

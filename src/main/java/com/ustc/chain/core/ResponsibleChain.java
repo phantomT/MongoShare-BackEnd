@@ -38,7 +38,11 @@ public class ResponsibleChain {
 
     private void execHandler(Handler handler, ContextRequest request, ContextResponse response) throws IOException {
         // 执行当前结点处理
-        handler.doHandler(request, response);
+        try {
+            handler.doHandler(request, response);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 如果存在下一个结点,则处理下一个结点
         if (handler.hasNext()) {
             execHandler(handler.getNext(), ContextHolder.getReq(), ContextHolder.getResp());

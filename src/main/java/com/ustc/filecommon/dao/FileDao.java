@@ -162,7 +162,7 @@ public class FileDao {
     /**
      * 删除文件-DiskMd5 & Chunk
      *
-     * @param fileMd5    用户id
+     * @param fileMd5    文件MD5
      */
     public void removeDiskMd5(String fileMd5) {
         Query query = new Query();
@@ -191,6 +191,19 @@ public class FileDao {
                 }
             }
             mongoTemplate.remove(query1, "DiskMd5Chunk");
+        }
+    }
+
+    /**
+     * 删除文件-DiskUrl 如果URL对应的MD5不存在了，就删除该URL
+     * @param fileMd5   文件MD5
+     */
+    public void removeDiskUrl(String fileMd5){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("fileMd5").is(fileMd5));
+        boolean md5Exist = mongoTemplate.exists(query, DiskMd5.class);
+        if(!md5Exist){
+            mongoTemplate.remove(query, "DiskUrl");
         }
     }
 }

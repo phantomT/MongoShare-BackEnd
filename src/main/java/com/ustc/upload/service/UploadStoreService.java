@@ -1,6 +1,7 @@
 package com.ustc.upload.service;
 
-import java.io.FileNotFoundException;
+import com.ustc.entity.UrlFileBean;
+
 import java.io.IOException;
 
 public interface UploadStoreService {
@@ -13,8 +14,10 @@ public interface UploadStoreService {
     String upload(byte[] bytes, String filename);
 
     /**
-     * 删除文件
-     * @param path 文件路径
+     * 上传URL文件
+     * @param fileUrl   URL
+     * @param fileName  用户定义文件名
+     * @return 存储在服务器文件系统中的文件名
      */
-    void delete(String path);
+    UrlFileBean uploadUrl(String fileUrl, String fileName) throws IOException, InterruptedException;
 }

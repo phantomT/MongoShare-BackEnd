@@ -17,10 +17,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -76,7 +76,8 @@ public class FileUploadController {
     @ApiOperation("合并切块")
 //    @ApiImplicitParam(name = "username", value = "上传用户名", dataType = "String", paramType = "query", required = true)
     @PostMapping("/mergeChunk")
-    public CommonResult<String> mergeChunk(MergeFileBean bean) throws ServiceException, SolrServerException, IOException {
+    public CommonResult<String> mergeChunk(MergeFileBean bean)
+            throws ServiceException, SolrServerException, IOException {
         System.out.println("进入合并切块");
         // 获取用户信息
         System.out.println("mergeChunk中收到的uuid: " + bean.getUuid());
@@ -85,5 +86,25 @@ public class FileUploadController {
         // 合并切块
         uploadFileService.mergeChunk(bean);
         return CommonResultUtils.success("切块合并成功");
+    }
+
+    @ApiOperation("URL上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "pid", value = "上传的目的文件夹", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "url", value = "上传文件的URL", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "filename", value = "上传文件的文件名", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "token", dataTypeClass = String.class)
+    })
+    @PostMapping("/urlUp")
+    public CommonResult<String> urlUp(@RequestParam("userid") String userid, @RequestParam("pid") String pid,
+                                      @RequestParam("url") String Url, @RequestParam("filename") String fileName,
+                                      String token)
+            throws ServiceException, IOException, InterruptedException {
+        System.out.println("使用URL上传");
+
+        uploadFileService.uploadUrlFile(userid, Url, fileName, pid);
+
+        return CommonResultUtils.success("URL上传文件成功");
     }
 }

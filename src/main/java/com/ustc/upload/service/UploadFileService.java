@@ -25,7 +25,16 @@ public interface UploadFileService {
 
     /**
      * 合并切块
-     * @param bean
+     * @param bean  MergeFileBean
      */
     void mergeChunk(MergeFileBean bean) throws SolrServerException, IOException;
+
+    /**
+     * 使用责任链模式上传URL文件
+     * @param userid    用户id
+     * @param fileUrl   文件的Url
+     * @param fileName  文件名
+     * @param pid       父文件夹
+     */
+    void uploadUrlFile(String userid, String fileUrl, String fileName, String pid) throws IOException, InterruptedException;
 }

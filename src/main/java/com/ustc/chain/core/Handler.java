@@ -43,5 +43,5 @@ public abstract class Handler {
      * @param request 请求
      * @param response 响应
      */
-    public abstract void doHandler(ContextRequest request, ContextResponse response) throws IOException;
+    public abstract void doHandler(ContextRequest request, ContextResponse response) throws IOException, InterruptedException;
 }
