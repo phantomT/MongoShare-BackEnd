@@ -40,7 +40,7 @@ public class DeleteUpdateHandler extends Handler {
                 DiskFile record = delList.element();
                 // 如果该文件是文件夹
                 if(record.getFileType().equals(0)){
-                    for(DiskFile df : fileDao.findFiles(record.getUserid(), record.getId().toString())){
+                    for(DiskFile df : fileDao.findFiles(record.getId().toString())){
                         delList.offer(df);
                     }
                     fileDao.removeFolder(record.getPid(), record.getId());

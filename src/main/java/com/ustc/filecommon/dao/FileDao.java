@@ -121,15 +121,11 @@ public class FileDao {
     /**
      * 查询位于某文件夹下的所有文件
      *
-     * @param userid 用户id
      * @param pid    父文件夹id
      * @return 文件夹列表
      */
-    public List<DiskFile> findFiles(String userid, String pid) {
+    public List<DiskFile> findFiles(String pid) {
         Query query = new Query();
-        if(!userid.equals("admin")){
-            query.addCriteria(Criteria.where("userid").is(userid));
-        }
         query.addCriteria(Criteria.where("pid").is(pid));
 
         return mongoTemplate.find(query, DiskFile.class);

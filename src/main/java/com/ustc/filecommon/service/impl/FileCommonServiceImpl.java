@@ -113,7 +113,7 @@ public class FileCommonServiceImpl implements FileCommonService {
 
     @Override
     public void delete(String userid, List<String> idList) throws IOException {
-        // 创建移动职责链
+        // 创建删除职责链
         ResponsibleChain responsibleChain = new ResponsibleChain();
         DeleteRequest deleteRequest = new DeleteRequest(userid, idList);
 
