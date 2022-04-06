@@ -1,8 +1,6 @@
 package com.ustc.filecommon.service;
 
 import com.ustc.entity.FileListBean;
-import com.ustc.exception.ServiceException;
-import org.apache.solr.client.solrj.SolrServerException;
 
 import java.io.IOException;
 import java.util.List;

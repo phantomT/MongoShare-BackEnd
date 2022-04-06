@@ -9,7 +9,6 @@ import com.ustc.chain.param.MoveRequest;
 import com.ustc.chain.param.RenameRequest;
 import com.ustc.entity.DiskFile;
 import com.ustc.entity.FileListBean;
-import com.ustc.exception.ServiceException;
 import com.ustc.filecommon.dao.FileDao;
 import com.ustc.filecommon.service.FileCommonService;
 import com.ustc.utils.CapacityUtils;

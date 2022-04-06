@@ -5,7 +5,6 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 /**
  * @author 田宝宁

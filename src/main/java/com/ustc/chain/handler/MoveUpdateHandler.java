@@ -8,10 +8,7 @@ import com.ustc.entity.DiskFile;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
 import com.ustc.filecommon.dao.FileDao;
-import com.ustc.utils.FileType;
 import org.apache.http.client.utils.DateUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,6 @@
 package com.ustc.upload.dao;
 
-import com.ustc.entity.DiskFile;
 import com.ustc.entity.DiskMd5;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

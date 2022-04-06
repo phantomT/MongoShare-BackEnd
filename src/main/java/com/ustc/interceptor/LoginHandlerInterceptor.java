@@ -2,6 +2,7 @@ package com.ustc.interceptor;
 
 import com.ustc.entity.SessionUserBean;
 import org.springframework.web.servlet.HandlerInterceptor;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

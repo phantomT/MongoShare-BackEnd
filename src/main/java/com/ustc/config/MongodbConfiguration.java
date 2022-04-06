@@ -12,8 +12,6 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 /**
  * @author 田宝宁
  * @date 2021-3-1

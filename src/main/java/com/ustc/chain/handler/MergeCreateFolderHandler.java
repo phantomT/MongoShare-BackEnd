@@ -11,14 +11,12 @@ import com.ustc.upload.dao.DiskFileDao;
 import com.ustc.utils.FileType;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 判断是否为文件夹上传, 如果是文件夹上传则会创建文件夹

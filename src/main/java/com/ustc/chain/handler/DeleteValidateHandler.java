@@ -4,7 +4,6 @@ import com.ustc.chain.core.ContextRequest;
 import com.ustc.chain.core.ContextResponse;
 import com.ustc.chain.core.Handler;
 import com.ustc.chain.param.DeleteRequest;
-import com.ustc.chain.param.MoveRequest;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
 import com.ustc.utils.ValidateUtils;

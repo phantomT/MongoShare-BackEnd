@@ -7,7 +7,6 @@ import com.ustc.chain.param.MoveRequest;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
 import com.ustc.utils.ValidateUtils;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

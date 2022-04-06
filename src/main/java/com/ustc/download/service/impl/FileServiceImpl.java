@@ -3,16 +3,6 @@ package com.ustc.download.service.impl;
 import com.ustc.download.dao.FileListRepository;
 import com.ustc.download.service.FileService;
 import com.ustc.entity.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.ustc.login.service.UserService;
 import com.ustc.upload.dao.DiskFileDao;
 import com.ustc.utils.CapacityUtils;
@@ -27,8 +17,16 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Component
 public class FileServiceImpl implements FileService {

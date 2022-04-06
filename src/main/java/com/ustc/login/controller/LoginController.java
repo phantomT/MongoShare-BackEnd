@@ -1,12 +1,12 @@
 package com.ustc.login.controller;
 
+import com.ustc.entity.SessionUserBean;
 import com.ustc.entity.UserDO;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
+import com.ustc.login.service.UserService;
 import com.ustc.utils.CommonResult;
 import com.ustc.utils.CommonResultUtils;
-import com.ustc.entity.SessionUserBean;
-import com.ustc.login.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
