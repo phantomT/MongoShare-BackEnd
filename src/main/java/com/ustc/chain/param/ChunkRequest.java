@@ -5,6 +5,7 @@ import com.ustc.chain.core.ContextRequest;
 /**
  * 将Chunk封装为在责任链中处理的请求
  * @author 田宝宁
+ * @date 2022/03/15
  */
 public class ChunkRequest extends ContextRequest {
     /**

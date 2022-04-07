@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * mvc配置
  * @author 田宝宁
- * @date 2021-3-2
+ * @date 2022/03/07
  */
 @Configuration
 public class SpringMVCConfiguration implements WebMvcConfigurer {

@@ -4,7 +4,7 @@ package com.ustc.chain.core;
  * 处理管道实现类
  * @author 田宝宁
  */
-public class PipelinImpl implements Pipeline{
+public class PipelineImpl implements Pipeline{
     /**
      * 第一个handler
      */
@@ -29,7 +29,7 @@ public class PipelinImpl implements Pipeline{
         return firstHandler;
     }
 
-    public PipelinImpl setFirstHandler(Handler firstHandler) {
+    public PipelineImpl setFirstHandler(Handler firstHandler) {
         this.firstHandler = firstHandler;
         return this;
     }
@@ -38,7 +38,7 @@ public class PipelinImpl implements Pipeline{
         return curHandler;
     }
 
-    public PipelinImpl setCurHandler(Handler curHandler) {
+    public PipelineImpl setCurHandler(Handler curHandler) {
         this.curHandler = curHandler;
         return this;
     }

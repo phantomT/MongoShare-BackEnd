@@ -13,11 +13,13 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
+ * 重命名过程处理
  * @author 田宝宁
- * @date 2021/7/9
+ * @date 2022/04/01
  */
 @Component
 public class RenameUpdateHandler extends Handler {
+
     @Autowired
     FileDao fileDao;
 

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 将相应的块从Redis中删除
- *
  * @author 田宝宁
- * @date 2021/6/21
  */
 @Component
 public class MergeDelRedisHandler extends Handler {

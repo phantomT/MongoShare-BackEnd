@@ -1,10 +1,11 @@
-
 package com.ustc.entity;
 
 import java.io.Serializable;
 
 /**
+ * 定义DownloadBean
  * @author 田宝宁
+ * @date 2022/04/08
  */
 public class DownloadBean implements Serializable {
     private Integer fileNum;

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 全局统一返回结果
  *
  * @author 田宝宁
- * @date 2021-3-1
+ * @date 2022/03/07
  */
 public class CommonResult<T> implements Serializable {
     /**

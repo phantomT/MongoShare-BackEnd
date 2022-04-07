@@ -3,8 +3,9 @@ package com.ustc.chain.param;
 import com.ustc.chain.core.ContextRequest;
 
 /**
+ * 将重命名操作中的信息封装为在责任链中处理的请求
  * @author 田宝宁
- * @date 2021/7/9
+ * @date 2022/03/23
  */
 public class RenameRequest extends ContextRequest {
     /**

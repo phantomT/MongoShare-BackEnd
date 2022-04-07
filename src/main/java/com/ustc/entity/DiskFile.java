@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 该集合主要是用于管理个人文件，以及个人文件的目录结构，文件和文件夹共用该集合
  * @author 田宝宁
- * @date 2022/4/1
+ * @date 2022/04/01
  */
 @Document(collection = "DiskFile")
 public class DiskFile {

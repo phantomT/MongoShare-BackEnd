@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author 田宝宁
+ * @date 2022/03/07
  */
 @ApiModel(description = "文件信息")
 public class FileListBean implements Serializable {

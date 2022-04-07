@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * 文件Md5, 每个文件唯一一份, 一个文件Md5表的数据项对应文件切块表中的多个数据项
  * @author 田宝宁
+ * @date 2022/03/07
  */
 @Document(collection = "DiskMd5")
 public class DiskMd5 {

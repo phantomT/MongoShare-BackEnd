@@ -16,8 +16,9 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
+ * 处理移动过程中的记录
  * @author 田宝宁
- * @date 2021/7/9
+ * @date 2022/04/01
  */
 @Component
 public class MoveUpdateHandler extends Handler {

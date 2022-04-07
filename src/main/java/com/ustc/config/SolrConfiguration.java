@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 田宝宁
- * @date 2021/6/27
+ * @author 王博
+ * @date 2022/04/07
  */
 @Configuration
 @ConfigurationProperties(prefix = "solr")

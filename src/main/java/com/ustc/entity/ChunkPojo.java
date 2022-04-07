@@ -4,7 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * 定义文件分片参数
  * @author 田宝宁
+ * @date 2022/03/07
  */
 @ApiModel(description = "切块参数")
 public class ChunkPojo {

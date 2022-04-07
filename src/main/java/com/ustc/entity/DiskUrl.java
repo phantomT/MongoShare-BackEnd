@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * 记录用户上传文件的URL，减少同一URL重复上传已有文件
  * @author 田宝宁
+ * @date 2022/04/04
  */
 @Document(collection = "DiskUrl")
 public class DiskUrl {

@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * 根据URL上传的文件信息修改DiskFile表
  * @author 田宝宁
- * @date 2022/4/5
+ * @date 2022/04/05
  */
 @Component
 public class UrlSaveToDiskFileHandler extends Handler {

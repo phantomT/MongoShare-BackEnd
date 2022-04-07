@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author 田宝宁
+ * @date 2022/04/05
  */
 public class UrlUploadFileBean implements Serializable {
     private String url;

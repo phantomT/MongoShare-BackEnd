@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @author 田宝宁
- * @date 2021/6/30
+ * @author 王博
+ * @date 2022/04/07
  */
 public class MergeSolrHandler extends Handler {
 

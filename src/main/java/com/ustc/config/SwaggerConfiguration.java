@@ -16,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author 田宝宁
+ * @date 2022/03/07
  */
 @Configuration
 @EnableSwagger2
@@ -25,9 +26,8 @@ public class SwaggerConfiguration {
 
     /**
      * 切割扫描的包生成Predicate<RequestHandler>
-     *
-     * @param basePackage
-     * @return
+     * @param basePackage   basePackage
+     * @return  Predicate<RequestHandler>
      */
     public static Predicate<RequestHandler> scanBasePackage(final String basePackage) {
         if (StringUtils.isBlank(basePackage)) {

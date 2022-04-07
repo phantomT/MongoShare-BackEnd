@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * @author 田宝宁
+ * @date 2022/03/07
  */
 public class FileBean implements Serializable {
     private String id;

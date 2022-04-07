@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 使用URL上传文件后记录文件信息
  * @author 田宝宁
- * @date 2022/4/5
+ * @date 2022/04/05
  */
 public class UrlFileBean implements Serializable {
     /**

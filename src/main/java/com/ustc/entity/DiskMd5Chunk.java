@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * 该集合主要用于存储文件的切块记录，由于文件在上传时被切分为一个个大小为1M的块
  * 一个DiskMd5集合中的文档会对应于许多DiskMd5Chunk中的文档
  * @author 田宝宁
- * @date 2021-4-1
+ * @date 2022/04/01
  */
 @Document(collection = "DiskMd5Chunk")
 public class DiskMd5Chunk {

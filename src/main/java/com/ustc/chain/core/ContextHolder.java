@@ -4,8 +4,8 @@ package com.ustc.chain.core;
  * @author 田宝宁
  */
 public class ContextHolder {
-    // 使用ThreadLocal来管理Request和Response
 
+    // 使用ThreadLocal来管理Request和Response
     private static ThreadLocal<ContextRequest> tlReq = new ThreadLocal<>();
     private static ThreadLocal<ContextResponse> tlResp = new ThreadLocal<>();
 

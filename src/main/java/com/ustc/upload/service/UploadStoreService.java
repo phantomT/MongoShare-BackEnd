@@ -4,6 +4,10 @@ import com.ustc.entity.UrlFileBean;
 
 import java.io.IOException;
 
+/**
+ * @author 田宝宁
+ * @date 2022/04/05
+ */
 public interface UploadStoreService {
     /**
      * 上传文件

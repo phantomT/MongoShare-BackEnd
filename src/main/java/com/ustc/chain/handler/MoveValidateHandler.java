@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
+ * 移动操作的参数校验
  * @author 田宝宁
- * @date 2021/7/9
+ * @date 2022/04/01
  */
 @Component
 public class MoveValidateHandler extends Handler {

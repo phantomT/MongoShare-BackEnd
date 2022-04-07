@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 /**
  * @author 田宝宁
- * @date 2021-3-1
+ * @date 2022/03/07
  */
 @Configuration
 public class MongodbConfiguration {

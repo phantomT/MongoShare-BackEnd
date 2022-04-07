@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 校验文件格式
- *
  * @author 田宝宁
  */
 @Component

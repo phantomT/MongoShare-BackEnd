@@ -7,7 +7,9 @@ import com.ustc.entity.RedisChunkTemp;
 import java.util.List;
 
 /**
+ * 将MergeFileBean封装为在责任链中处理的请求
  * @author 田宝宁
+ * @date 2022/03/15
  */
 public class MergeRequest extends ContextRequest {
     /**

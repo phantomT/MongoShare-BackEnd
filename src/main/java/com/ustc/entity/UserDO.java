@@ -8,6 +8,7 @@ import java.util.Date;
 
 /**
  * @author 田宝宁
+ * @date 2022/03/07
  */
 @Document(collection = "User")
 public class UserDO {

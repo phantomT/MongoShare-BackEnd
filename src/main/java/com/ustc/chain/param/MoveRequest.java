@@ -5,16 +5,23 @@ import com.ustc.chain.core.ContextRequest;
 import java.util.List;
 
 /**
+ * 将Move操作的信息封装为在责任链中处理的请求
  * @author 田宝宁
- * @date 2021/7/9
+ * @date 2022/03/23
  */
 public class MoveRequest extends ContextRequest {
+    /**
+     * 用户Id
+     */
     private String userid;
+    /**
+     * 文件夹Id（要移动到的文件夹）
+     */
     private String pid;
+    /**
+     * 记录要操作的文件Id的列表
+     */
     private List<String> idList;
-
-    public MoveRequest() {
-    }
 
     public MoveRequest(String userid, String pid, List<String> idList) {
         this.userid = userid;

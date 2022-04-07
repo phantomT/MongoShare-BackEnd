@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * 将文件信息保存到DiskFile表中
  * @author 田宝宁
- * @date 2021/6/21
  */
 @Component
 public class MergeSaveToDiskFileHandler extends Handler {
