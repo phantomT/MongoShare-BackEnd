@@ -6,31 +6,35 @@ import java.io.IOException;
 import java.util.List;
 
 public interface FileService {
-  // TODO 2022/04/07 修改分页项目数量错误
   /**
    * 文件列表分页
-   * @param page      当前页号
-   * @param limit     每页记录数
-   * @param pid       父文件夹id
-   * @param typeCode  文件类型码
-   * @param orderField
-   * @param orderType
+   * @param page        当前页号
+   * @param limit       每页记录数
+   * @param pid         父文件夹id
+   * @param typeCode    文件类型码
+   * @param orderField  排序字段
+   * @param orderType   排序类型
    * @return 本页所有文件信息
    */
   PageInfo<FileListBean> findPageList(Integer page, Integer limit, String pid, String typeCode,String orderField,String orderType);
 
-  List<DiskFile> findAllFile();
-
   /**
    * 根据文件Id找出该文件
-   * @param paramString 文件Id
+   * @param id 文件Id
    * @return FileBean
    */
-  FileBean findOne(String paramString);
+  FileBean findOne(String id);
+
+  /**
+   * 将DiskFile类转换为FileBean类
+   * @param diskFile  DiskFile类
+   * @return FileBean类
+   */
+  FileBean diskFileToFileBean(DiskFile diskFile);
   
-  List<FileBean> findChildrenFiles(String paramString1, String paramString2);
+  List<FileBean> findChildrenFiles(String userName, String folderId);
   
-  List<FileBean> findChildrenFiles(String paramString);
+  List<FileBean> findChildrenFiles(String folderId);
 
   /**
    * 通过文件md5得到切块列表
@@ -40,8 +44,6 @@ public interface FileService {
   List<String> getChunksByFileMd5(String paramString);
   
   byte[] getBytesByUrl(String paramString) throws IOException;
-  
-  void saveFile(DiskFile paramDiskFile);
   
   DownloadBean getDownloadInfo(List<String> paramList);
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/disk/file")
 public class FileListController {
+
     @Autowired
     private FileService fileService;
 
@@ -36,6 +37,7 @@ public class FileListController {
     })
     @PostMapping("/findList")
     public CommonResult<PageInfo<FileListBean>> findList(PageInfo<FileListBean> pi, String pid, String orderField, String orderType) {
+
         PageInfo<FileListBean> pageList = fileService.findPageList(pi.getPage(), pi.getLimit(), pid, "all", orderField, orderType);
 
         return CommonResultUtils.success(pageList);
