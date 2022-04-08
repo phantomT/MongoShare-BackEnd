@@ -37,13 +37,9 @@ public class ChunkRequest extends ContextRequest {
      */
     private String uuid;
     /**
-     * 用户id
-     */
-    private String userid;
-    /**
      * 用户名
      */
-    private String username;
+    private String userName;
     /**
      * 块存储路径
      */
@@ -51,7 +47,7 @@ public class ChunkRequest extends ContextRequest {
     /**
      * 文件类型
      */
-    private String typecode;
+    private String typeCode;
 
     public String getId() {
         return id;
@@ -116,21 +112,12 @@ public class ChunkRequest extends ContextRequest {
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public ChunkRequest setUserid(String userid) {
-        this.userid = userid;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public ChunkRequest setUsername(String username) {
-        this.username = username;
+    public ChunkRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
@@ -143,12 +130,12 @@ public class ChunkRequest extends ContextRequest {
         return this;
     }
 
-    public String getTypecode() {
-        return typecode;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public ChunkRequest setTypecode(String typecode) {
-        this.typecode = typecode;
+    public ChunkRequest setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
         return this;
     }
 }

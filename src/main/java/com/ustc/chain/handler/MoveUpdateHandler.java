@@ -7,7 +7,7 @@ import com.ustc.chain.param.MoveRequest;
 import com.ustc.entity.DiskFile;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
-import com.ustc.filecommon.dao.FileDao;
+import com.ustc.fileCommon.dao.FileDao;
 import org.apache.http.client.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class MoveUpdateHandler extends Handler {
                 // 根据id从数据库中取出相应要被移动的记录
                 DiskFile record = fileDao.findOne(id);
                 // 根据父文件夹id以及文件名找出是否存在同名文件或文件夹
-                DiskFile sameNameRecord = fileDao.findRecordByPidAndName(record.getUserid(), pid, record.getFileName());
+                DiskFile sameNameRecord = fileDao.findRecordByPidAndName(record.getUserName(), pid, record.getFileName());
                 record.setPid(pid);
                 // 如果不存在同名记录, 则直接更新
                 if (sameNameRecord == null) {

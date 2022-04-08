@@ -26,31 +26,31 @@ public class RedisChunkTemp implements Serializable {
     /**
      * 当前切块大小
      */
-    private Integer currentsize;
+    private Integer currentSize;
     /**
      * 切块序号
      */
     private Integer chunk;
     /**
-     * 用户id
+     * 用户名
      */
-    private String userid;
+    private String userName;
     /**
      * 存储路径
      */
-    private String storepath;
+    private String storePath;
     /**
      * 类型
      */
-    private String typecode;
+    private String typeCode;
     /**
      * 文件后缀
      */
-    private String filesuffix;
+    private String fileSuffix;
     /**
      * 相对路径
      */
-    private String relativepath;
+    private String relativePath;
 
     public String getId() {
         return id;
@@ -88,12 +88,12 @@ public class RedisChunkTemp implements Serializable {
         return this;
     }
 
-    public Integer getCurrentsize() {
-        return currentsize;
+    public Integer getCurrentSize() {
+        return currentSize;
     }
 
-    public RedisChunkTemp setCurrentsize(Integer currentsize) {
-        this.currentsize = currentsize;
+    public RedisChunkTemp setCurrentSize(Integer currentSize) {
+        this.currentSize = currentSize;
         return this;
     }
 
@@ -106,48 +106,48 @@ public class RedisChunkTemp implements Serializable {
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public RedisChunkTemp setUserid(String userid) {
-        this.userid = userid;
+    public RedisChunkTemp setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
-    public String getStorepath() {
-        return storepath;
+    public String getStorePath() {
+        return storePath;
     }
 
-    public RedisChunkTemp setStorepath(String storepath) {
-        this.storepath = storepath;
+    public RedisChunkTemp setStorePath(String storePath) {
+        this.storePath = storePath;
         return this;
     }
 
-    public String getTypecode() {
-        return typecode;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public RedisChunkTemp setTypecode(String typecode) {
-        this.typecode = typecode;
+    public RedisChunkTemp setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
         return this;
     }
 
-    public String getFilesuffix() {
-        return filesuffix;
+    public String getFileSuffix() {
+        return fileSuffix;
     }
 
-    public RedisChunkTemp setFilesuffix(String filesuffix) {
-        this.filesuffix = filesuffix;
+    public RedisChunkTemp setFileSuffix(String fileSuffix) {
+        this.fileSuffix = fileSuffix;
         return this;
     }
 
-    public String getRelativepath() {
-        return relativepath;
+    public String getRelativePath() {
+        return relativePath;
     }
 
-    public RedisChunkTemp setRelativepath(String relativepath) {
-        this.relativepath = relativepath;
+    public RedisChunkTemp setRelativePath(String relativePath) {
+        this.relativePath = relativePath;
         return this;
     }
 }

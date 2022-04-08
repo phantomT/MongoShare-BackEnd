@@ -44,7 +44,7 @@ public class UrlFileStoreHandler extends Handler {
                 urlUp.setChunkList(bean.getChunkList());
                 urlUp.setFileMd5(bean.getFileMd5());
                 urlUp.setFileSuffix(bean.getFileSuffix());
-                urlUp.setTotalSize(bean.getFilesize());
+                urlUp.setTotalSize(bean.getTotalSize());
                 urlUp.setFileNum(bean.getChunkList().size());
 
                 diskUrlDao.setMd5(urlUp.getUrl(), bean.getFileMd5());

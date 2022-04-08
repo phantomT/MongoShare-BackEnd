@@ -14,13 +14,13 @@ public interface FileSearchService {
     /**
      * 查找文件
      *
-     * @param filename 文件名
-     * @param userid   用户id
-     * @param page     页数
-     * @param limit    每页记录数
+     * @param fileName  文件名
+     * @param userName  用户名
+     * @param page      页数
+     * @param limit     每页记录数
      * @return 文件
      */
-    PageInfo<FileSearchBean> search(String filename, String userid, Integer page, Integer limit) throws Exception;
+    PageInfo<FileSearchBean> search(String fileName, String userName, Integer page, Integer limit) throws Exception;
 
     /**
      * 添加一项记录

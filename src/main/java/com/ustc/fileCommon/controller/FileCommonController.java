@@ -1,8 +1,8 @@
-package com.ustc.filecommon.controller;
+package com.ustc.fileCommon.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ustc.entity.FileListBean;
-import com.ustc.filecommon.service.FileCommonService;
+import com.ustc.fileCommon.service.FileCommonService;
 import com.ustc.utils.CommonResult;
 import com.ustc.utils.CommonResultUtils;
 import com.ustc.utils.FileUtils;
@@ -26,7 +26,7 @@ import java.util.List;
 
 @Api(tags = "文件通用操作")
 @RestController
-@RequestMapping("disk/filecommon")
+@RequestMapping("disk/fileCommon")
 public class FileCommonController {
 
     @Autowired
@@ -34,67 +34,67 @@ public class FileCommonController {
 
     @ApiOperation("查找文件夹")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
+        @ApiImplicitParam(name = "userName", value = "操作的用户名", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "pid", value = "父文件夹id", dataTypeClass = String.class, required = true),
-        @ApiImplicitParam(name = "idjson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
+        @ApiImplicitParam(name = "idJson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "token", dataTypeClass = String.class)
     })
     @PostMapping("/findFolderList")
-    public CommonResult<List<FileListBean>> findFolderList(@RequestParam("userid") String userid,
+    public CommonResult<List<FileListBean>> findFolderList(@RequestParam("userName") String userName,
                                                            @RequestParam("pid") String pid,
-                                                           @RequestParam("idjson") String idJson,
+                                                           @RequestParam("idJson") String idJson,
                                                            String token) throws JsonProcessingException {
         // 将idJson中的所有id存入列表中
         List<String> idList = FileUtils.idJsonToList(idJson);
         // 查询结果
-        return CommonResultUtils.success(fileCommonService.findFolderList(userid, pid, idList));
+        return CommonResultUtils.success(fileCommonService.findFolderList(userName, pid, idList));
     }
 
     @ApiOperation("移动文件到指定文件夹")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
+        @ApiImplicitParam(name = "userName", value = "操作的用户名", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "pid", value = "目的父文件夹id", dataTypeClass = String.class, required = true),
-        @ApiImplicitParam(name = "idjson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
+        @ApiImplicitParam(name = "idJson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "token", dataTypeClass = String.class)
     })
     @PostMapping("/moveTo")
-    public CommonResult<String> move(@RequestParam("userid") String userid, @RequestParam("toid") String pid, @RequestParam("idjson") String idJson,
+    public CommonResult<String> move(@RequestParam("userName") String userName, @RequestParam("toPid") String pid, @RequestParam("idJson") String idJson,
                                      String token) throws IOException {
         List<String> idList = FileUtils.idJsonToList(idJson);
-        fileCommonService.move(userid, pid, idList);
+        fileCommonService.move(userName, pid, idList);
         return CommonResultUtils.success("移动成功");
     }
 
     @ApiOperation("文件重命名")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
+        @ApiImplicitParam(name = "userName", value = "操作的用户名", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "id", value = "文件id", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "newName", value = "文件id", dataTypeClass = String.class, required = true),
         @ApiImplicitParam(name = "token", dataTypeClass = String.class)
     })
     @PostMapping("/rename")
-    public CommonResult<String> rename(@RequestParam("userid") String userid, @RequestParam("id") String id, @RequestParam("filename") String newName,
+    public CommonResult<String> rename(@RequestParam("userName") String userName, @RequestParam("id") String id, @RequestParam("filename") String newName,
                                        String token) throws IOException {
-        fileCommonService.rename(userid, id, newName);
+        fileCommonService.rename(userName, id, newName);
         return CommonResultUtils.success("重命名成功");
     }
 
     @PostMapping("/findOne")
-    public CommonResult<FileListBean> findOne(@RequestParam("userid") String userid, @RequestParam("id") String id, String token) {
-        return CommonResultUtils.success(fileCommonService.findOneRecord(userid, id));
+    public CommonResult<FileListBean> findOne(@RequestParam("userName") String userName, @RequestParam("id") String id, String token) {
+        return CommonResultUtils.success(fileCommonService.findOneRecord(userName, id));
     }
 
     @ApiOperation("文件删除")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
-            @ApiImplicitParam(name = "idjson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "userName", value = "操作的用户名", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "idJson", value = "id的Json序列化格式, 含有id和文件名", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "token", dataTypeClass = String.class)
     })
     @PostMapping("/delete")
-    public CommonResult<String> delete(@RequestParam("userid") String userid, @RequestParam("idjson") String idJson,
+    public CommonResult<String> delete(@RequestParam("userName") String userName, @RequestParam("idJson") String idJson,
                                        String token) throws IOException {
         List<String> idList = FileUtils.idJsonToList(idJson);
-        fileCommonService.delete(userid, idList);
+        fileCommonService.delete(userName, idList);
         return CommonResultUtils.success("文件已删除");
     }
 }

@@ -24,7 +24,7 @@ public class UrlFileBean implements Serializable {
     /**
      * 文件总大小
      */
-    private long filesize;
+    private long totalSize;
     /**
      * 文件MD5
      */
@@ -60,12 +60,12 @@ public class UrlFileBean implements Serializable {
         this.fileSuffix = fileSuffix;
     }
 
-    public long getFilesize() {
-        return this.filesize;
+    public long getTotalSize() {
+        return this.totalSize;
     }
 
-    public void setFilesize(long filesize) {
-        this.filesize = filesize;
+    public void setTotalSize(long totalSize) {
+        this.totalSize = totalSize;
     }
 
     public String getFileMd5() {

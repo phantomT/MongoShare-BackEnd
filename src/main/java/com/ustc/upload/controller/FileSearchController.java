@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 @ApiIgnore
 @Api(tags = "文件搜索, 有bug暂时不用")
 @RestController
-@RequestMapping("disk/filesearch")
+@RequestMapping("disk/fileSearch")
 public class FileSearchController {
 
     @Autowired

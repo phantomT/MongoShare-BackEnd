@@ -31,7 +31,7 @@ public class MergeSaveToDiskMd5ChunkHandler extends Handler {
             MergeRequest bean = (MergeRequest) request;
 
             // 如果bean不存在于DiskMd5表中, 即服务器内不存在该文件时上传
-            if (!bean.isExistInDiskmd5()) {
+            if (!bean.isExistInDiskMd5()) {
                 // 获取所有切块记录
                 List<RedisChunkTemp> chunkTemps = bean.getChunkTemps();
                 // 将Redis切块记录转换为MongoDb切块记录
@@ -41,13 +41,13 @@ public class MergeSaveToDiskMd5ChunkHandler extends Handler {
                     // 设置文档属性
                     // 存入集合中的文档不设id, 使用mongoDB自带的ObjectId
                     DiskMd5Chunk md5Chunk = new DiskMd5Chunk();
-                    md5Chunk.setFileMd5(bean.getFilemd5());
+                    md5Chunk.setFileMd5(bean.getFileMd5());
                     md5Chunk.setChunkName(temp.getName());
                     md5Chunk.setChunkNumber(temp.getChunk());
-                    md5Chunk.setChunkSize(temp.getCurrentsize().longValue());
+                    md5Chunk.setChunkSize(temp.getCurrentSize().longValue());
                     md5Chunk.setTotalChunks(temp.getChunks());
                     md5Chunk.setTotalSize(temp.getSize());
-                    md5Chunk.setStorePath(temp.getStorepath());
+                    md5Chunk.setStorePath(temp.getStorePath());
 
                     // 将对应文档加入List中
                     chunkList.add(md5Chunk);

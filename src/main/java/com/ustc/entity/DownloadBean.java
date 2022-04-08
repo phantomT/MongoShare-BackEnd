@@ -8,10 +8,25 @@ import java.io.Serializable;
  * @date 2022/04/08
  */
 public class DownloadBean implements Serializable {
+    /**
+     * 文件分片数
+     */
     private Integer fileNum;
+    /**
+     * 文件夹数量
+     */
     private Integer folderNum;
+    /**
+     * 文件总大小
+     */
     private long totalSize;
+    /**
+     * 文件总大小的字符串
+     */
     private String totalSizeName;
+    /**
+     * 是否是大文件
+     */
     private Integer isBig;
 
     public DownloadBean() {

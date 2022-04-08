@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class MoveRequest extends ContextRequest {
     /**
-     * 用户Id
+     * 用户名
      */
-    private String userid;
+    private String userName;
     /**
      * 文件夹Id（要移动到的文件夹）
      */
@@ -23,18 +23,18 @@ public class MoveRequest extends ContextRequest {
      */
     private List<String> idList;
 
-    public MoveRequest(String userid, String pid, List<String> idList) {
-        this.userid = userid;
+    public MoveRequest(String userName, String pid, List<String> idList) {
+        this.userName = userName;
         this.idList = idList;
         this.pid = pid;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public MoveRequest setUserid(String userid) {
-        this.userid = userid;
+    public MoveRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

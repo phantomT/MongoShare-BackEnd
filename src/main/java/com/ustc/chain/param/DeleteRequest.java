@@ -11,25 +11,25 @@ import java.util.List;
  */
 public class DeleteRequest extends ContextRequest {
     /**
-     * 用户id
+     * 用户名
      */
-    private String userid;
+    private String userName;
     /**
      * 记录文件Id的列表
      */
     private List<String> idList;
 
-    public DeleteRequest(String userid, List<String> idList) {
-        this.userid = userid;
+    public DeleteRequest(String userName, List<String> idList) {
+        this.userName = userName;
         this.idList = idList;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public DeleteRequest setUserid(String userid) {
-        this.userid = userid;
+    public DeleteRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

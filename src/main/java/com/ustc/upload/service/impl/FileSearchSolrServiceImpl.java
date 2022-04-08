@@ -32,16 +32,16 @@ public class FileSearchSolrServiceImpl implements FileSearchService {
     private SolrClient solrClient;
 
     @Override
-    public PageInfo<FileSearchBean> search(String filename, String userid, Integer page, Integer limit)
+    public PageInfo<FileSearchBean> search(String fileName, String userName, Integer page, Integer limit)
             throws Exception {
         PageInfo<FileSearchBean> pageInfo = new PageInfo<>();
         SolrQuery query = new SolrQuery();
-        if (StringUtils.isEmpty(filename)) {
+        if (StringUtils.isEmpty(fileName)) {
             query.set("pid", 0);
         } else {
-            query.set("filename:", filename);
+            query.set("fileName:", fileName);
         }
-        query.setFilterQueries("createuserid:" + userid);
+        query.setFilterQueries("createUserName:" + userName);
         // 分页
         page = page == null ? 1 : page;
         limit = limit == null ? 10 : limit;
@@ -50,10 +50,10 @@ public class FileSearchSolrServiceImpl implements FileSearchService {
         query.setRows(limit);
 
         // 按创建时间倒序输出
-        query.setSort("createtime", SolrQuery.ORDER.desc);
+        query.setSort("createTime", SolrQuery.ORDER.desc);
         // 设置高亮
         query.setHighlight(true);
-        query.addHighlightField("filename");
+        query.addHighlightField("fileName");
         query.setHighlightSimplePre("<span style=\"color:red;\">");
         query.setHighlightSimplePost("</span>");
 
@@ -80,18 +80,17 @@ public class FileSearchSolrServiceImpl implements FileSearchService {
     public void add(FileSearchBean bean) throws SolrServerException, IOException {
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", bean.getId());
-        document.addField("filename", bean.getFilename());
+        document.addField("filename", bean.getFileName());
         document.addField("pid", bean.getPid());
-        document.addField("pname", bean.getPname());
-        document.addField("filemd5", bean.getFilemd5());
-        document.addField("fileicon", bean.getFileicon());
-        document.addField("typecode", bean.getTypecode());
-        document.addField("filesuffix", bean.getFilesuffix());
-        document.addField("filesize", bean.getFilesize());
-        document.addField("filetype", bean.getFiletype());
-        document.addField("createuserid", bean.getCreateuserid());
-        document.addField("createusername", bean.getCreateusername());
-        document.addField("createtime", bean.getCreatetime());
+        document.addField("pName", bean.getPName());
+        document.addField("fileMd5", bean.getFileMd5());
+        document.addField("fileIcon", bean.getFileIcon());
+        document.addField("typeCode", bean.getTypeCode());
+        document.addField("fileSuffix", bean.getFileSuffix());
+        document.addField("fileSize", bean.getFileSize());
+        document.addField("fileType", bean.getFileType());
+        document.addField("createUserName", bean.getCreateUserName());
+        document.addField("createTime", bean.getCreateTime());
 
         solrClient.add(document);
         solrClient.commit();
@@ -125,16 +124,15 @@ public class FileSearchSolrServiceImpl implements FileSearchService {
         for (SolrDocument solrDocument : solrDocuments) {
             String id = solrDocument.get("id") == null ? "" : solrDocument.get("id").toString();
             String pid = solrDocument.get("pid") == null ? "" : solrDocument.get("pid").toString();
-            String pname = solrDocument.get("pname") == null ? "" : solrDocument.get("pname").toString();
-            String filemd5 = solrDocument.get("filemd5") == null ? "" : solrDocument.get("filemd5").toString();
-            String fileicon = solrDocument.get("fileicon") == null ? "" : solrDocument.get("fileicon").toString();
-            String typecode = solrDocument.get("typecode") == null ? "" : solrDocument.get("typecode").toString();
-            String filesuffix = solrDocument.get("filesuffix") == null ? "" : solrDocument.get("filesuffix").toString();
-            String filesize = solrDocument.get("filesize") == null ? "" : solrDocument.get("filesize").toString();
-            String filetype = solrDocument.get("filetype") == null ? "" : solrDocument.get("filetype").toString();
-            String createuserid = solrDocument.get("createuserid") == null ? "" : solrDocument.get("createuserid").toString();
-            String createusername = solrDocument.get("createusername") == null ? "" : solrDocument.get("createusername").toString();
-            String createtime = solrDocument.get("createtime") == null ? "" : solrDocument.get("createtime").toString();
+            String pName = solrDocument.get("pName") == null ? "" : solrDocument.get("pName").toString();
+            String fileMd5 = solrDocument.get("fileMd5") == null ? "" : solrDocument.get("fileMd5").toString();
+            String fileIcon = solrDocument.get("fileIcon") == null ? "" : solrDocument.get("fileIcon").toString();
+            String typeCode = solrDocument.get("typeCode") == null ? "" : solrDocument.get("typeCode").toString();
+            String fileSuffix = solrDocument.get("fileSuffix") == null ? "" : solrDocument.get("fileSuffix").toString();
+            String fileSize = solrDocument.get("fileSize") == null ? "" : solrDocument.get("fileSize").toString();
+            String fileType = solrDocument.get("fileType") == null ? "" : solrDocument.get("fileType").toString();
+            String createUserName = solrDocument.get("createUserName") == null ? "" : solrDocument.get("createUserName").toString();
+            String createTime = solrDocument.get("createTime") == null ? "" : solrDocument.get("createTime").toString();
 
             List<String> list = highlighting.get(id).get("filename");
             String title;
@@ -145,18 +143,17 @@ public class FileSearchSolrServiceImpl implements FileSearchService {
             }
             FileSearchBean row = new FileSearchBean();
             row.setId(id);
-            row.setFilename(title);
+            row.setFileName(title);
             row.setPid(pid);
-            row.setPname(pname);
-            row.setFilemd5(filemd5);
-            row.setFileicon(fileicon);
-            row.setTypecode(typecode);
-            row.setFilesuffix(filesuffix);
-            row.setFilesize(filesize);
-            row.setFiletype(filetype);
-            row.setCreateuserid(createuserid);
-            row.setCreateusername(createusername);
-            row.setCreatetime(createtime);
+            row.setPName(pName);
+            row.setFileMd5(fileMd5);
+            row.setFileIcon(fileIcon);
+            row.setTypeCode(typeCode);
+            row.setFileSuffix(fileSuffix);
+            row.setFileSize(fileSize);
+            row.setFileType(fileType);
+            row.setCreateUserName(createUserName);
+            row.setCreateTime(createTime);
 
             records.add(row);
         }

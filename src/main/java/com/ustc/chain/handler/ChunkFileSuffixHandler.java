@@ -23,7 +23,7 @@ public class ChunkFileSuffixHandler extends Handler {
             // 获取文件名后缀
             String suffix = FilenameUtils.getExtension(chunk.getName());
             // 待完善该功能
-            chunk.setTypecode("0");
+            chunk.setTypeCode("0");
 
         } else {
             throw new ServiceException(ServiceExceptionEnum.UPLOAD_PARAM_ERROR);

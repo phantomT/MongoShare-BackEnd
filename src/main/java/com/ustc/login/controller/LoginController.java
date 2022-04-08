@@ -45,7 +45,7 @@ public class LoginController {
     public CommonResult<String> login(String username, String password,
                                       @ApiIgnore HttpSession httpSession) {
 
-        boolean hasUser = userService.findUserByUsername(username);
+        boolean hasUser = userService.userIsExist(username);
 
         if(hasUser){
             // 正确的密码
@@ -67,7 +67,7 @@ public class LoginController {
             newProfile.setNickname(username);
             newProfile.setGender("Unknown");
             newUser.setProfile(newProfile);
-            newUser.setUsername(username);
+            newUser.setUserName(username);
             newUser.setPassword(password);
             userService.saveUser(newUser);
 

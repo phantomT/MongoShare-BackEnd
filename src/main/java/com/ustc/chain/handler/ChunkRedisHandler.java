@@ -32,20 +32,19 @@ public class ChunkRedisHandler extends Handler {
             ChunkRequest chunk = (ChunkRequest) request;
 
             RedisChunkTemp temp=new RedisChunkTemp();
-            temp.setUserid(chunk.getUserid());
+            temp.setUserName(chunk.getUserName());
             temp.setId(chunk.getId());
             temp.setName(chunk.getName());
-            temp.setStorepath(chunk.getStorePath());
-            temp.setTypecode(chunk.getTypecode());
-            temp.setFilesuffix(FilenameUtils.getExtension(chunk.getName()));
+            temp.setStorePath(chunk.getStorePath());
+            temp.setTypeCode(chunk.getTypeCode());
+            temp.setFileSuffix(FilenameUtils.getExtension(chunk.getName()));
             temp.setSize(chunk.getSize());
             temp.setChunks(chunk.getChunks());
-            temp.setCurrentsize(chunk.getBytes().length);
+            temp.setCurrentSize(chunk.getBytes().length);
             temp.setChunk(chunk.getChunk());
-            /*
-              key: 用户id-uuid-文件id-文件名-块序号
-             */
-            String key = chunk.getUserid() + "-" + chunk.getUuid() + "-" + chunk.getId() + "-" + chunk.getName()
+
+            // key: 用户名-uuid-文件id-文件名-块序号
+            String key = chunk.getUserName() + "-" + chunk.getUuid() + "-" + chunk.getId() + "-" + chunk.getName()
                     + "-" + chunk.getChunk();
             System.out.println("chunk Redis Key: "+key);
             stringRedisTemplate.opsForValue().set(key, JsonUtils.objectToJson(temp), 30, TimeUnit.MINUTES);

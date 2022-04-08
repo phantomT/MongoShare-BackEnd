@@ -1,4 +1,4 @@
-package com.ustc.filecommon.dao;
+package com.ustc.fileCommon.dao;
 
 import com.ustc.config.StoreConfiguration;
 import com.ustc.entity.DiskFile;
@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Repository
 public class FileDao {
+
     @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
@@ -61,14 +62,14 @@ public class FileDao {
     /**
      * 根据父文件夹id和文件名查询记录
      *
-     * @param userid   用户id
-     * @param pid      父文件夹id
-     * @param fileName 文件名
+     * @param userName  用户名
+     * @param pid       父文件夹id
+     * @param fileName  文件名
      * @return 一条记录
      */
-    public DiskFile findRecordByPidAndName(String userid, String pid, String fileName) {
+    public DiskFile findRecordByPidAndName(String userName, String pid, String fileName) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("userid").is(userid));
+        query.addCriteria(Criteria.where("userName").is(userName));
         query.addCriteria(Criteria.where("pid").is(pid));
         query.addCriteria(Criteria.where("fileName").is(fileName));
         return mongoTemplate.findOne(query, DiskFile.class);
@@ -89,16 +90,16 @@ public class FileDao {
     /**
      * 寻找同一目录下是否存在同名文件, 需要排除自身
      *
-     * @param userid   用户id
-     * @param pid      父文件夹id
-     * @param id       文件id
-     * @param filename 文件名
-     * @param fileType 文件类型
+     * @param userName  用户名
+     * @param pid       父文件夹id
+     * @param id        文件id
+     * @param filename  文件名
+     * @param fileType  文件类型
      * @return 是否存在
      */
-    public boolean findIsExistBySameNameRecord(String userid, String pid, String id, String filename, Integer fileType) {
+    public boolean findIsExistBySameNameRecord(String userName, String pid, String id, String filename, Integer fileType) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("userid").is(userid));
+        query.addCriteria(Criteria.where("userName").is(userName));
         query.addCriteria(Criteria.where("pid").is(pid));
         query.addCriteria(Criteria.where("_id").ne(new ObjectId(id)));
         query.addCriteria(Criteria.where("fileName").is(filename));
@@ -148,12 +149,12 @@ public class FileDao {
     /**
      * 删除文件-DiskFile
      *
-     * @param userid    用户id
+     * @param userName  用户名
      * @param id        文件id
      */
-    public void removeDiskFile(String userid, ObjectId id) {
+    public void removeDiskFile(String userName, ObjectId id) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("userid").is(userid));
+        query.addCriteria(Criteria.where("userName").is(userName));
         query.addCriteria(Criteria.where("fileType").is(1));
         query.addCriteria(Criteria.where("_id").is(id));
         mongoTemplate.remove(query, "DiskFile");

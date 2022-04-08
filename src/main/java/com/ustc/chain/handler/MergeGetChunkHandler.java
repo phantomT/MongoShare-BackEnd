@@ -33,14 +33,14 @@ public class MergeGetChunkHandler extends Handler {
             MergeRequest bean = (MergeRequest) request;
 
             // key: 用户id-uuid-文件id-文件名-块序号, 不需要块序号, 模糊查询, 找出所有块
-            String userid = bean.getUserid();
+            String username = bean.getUserName();
             String uuid = bean.getUuid();
-            String fileId = bean.getFileid();
-            String filename = bean.getFilename();
+            String fileId = bean.getFileId();
+            String filename = bean.getFileName();
             List<RedisChunkTemp> temps = new ArrayList<>();
 
             // 通过模糊查询将存在redis中的块记录取出来
-            String key = userid + "-" + uuid + "-" + fileId + "-" + filename + "-*";
+            String key = username + "-" + uuid + "-" + fileId + "-" + filename + "-*";
             Set<String> keys = stringRedisTemplate.keys(key);
             if (keys != null) {
                 for (String tempKey : keys) {

@@ -16,25 +16,23 @@ public class FileListBean implements Serializable {
     @ApiModelProperty(name = "pid",value = "父文件夹id", required = true)
     private String pid;
     @ApiModelProperty(value = "父文件夹名", hidden = true)
-    private String pname;
+    private String pName;
     @ApiModelProperty(value = "文件名", hidden = true)
-    private String filename;
+    private String fileName;
     @ApiModelProperty(value = "文件大小", hidden = true)
-    private long filesize;
+    private long fileSize;
     @ApiModelProperty(value = "文件大小KB、MB等表示", hidden = true)
-    private String filesizename;
+    private String fileSizeName;
     @ApiModelProperty(value = "文件后缀", hidden = true)
-    private String filesuffix;
+    private String fileSuffix;
     @ApiModelProperty(value = "文件md5", hidden = true)
-    private String filemd5;
+    private String fileMd5;
     @ApiModelProperty(value = "文件类型", notes = "0-文件夹 1-文件", hidden = true)
-    private Integer filetype;
-    @ApiModelProperty(value = "创建者id", hidden = true)
-    private String createuserid;
-    @ApiModelProperty(value = "创建者昵称", hidden = true)
-    private String createusername;
+    private Integer fileType;
+    @ApiModelProperty(value = "创建者用户名", hidden = true)
+    private String createUserName;
     @ApiModelProperty(value = "创建时间", hidden = true)
-    private String createtime;
+    private String createTime;
 
 
     // ------------------------ get/set方法 ------------------------ //
@@ -56,83 +54,75 @@ public class FileListBean implements Serializable {
         this.pid = pid;
     }
 
-    public String getPname() {
-        return pname;
+    public String getPName() {
+        return pName;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setPName(String pName) {
+        this.pName = pName;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public long getFilesize() {
-        return filesize;
+    public long getFileSize() {
+        return fileSize;
     }
 
-    public void setFilesize(long filesize) {
-        this.filesize = filesize;
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public String getFilesizename() {
-        return filesizename;
+    public String getFileSizeName() {
+        return fileSizeName;
     }
 
-    public void setFilesizename(String filesizename) {
-        this.filesizename = filesizename;
+    public void setFileSizeName(String fileSizeName) {
+        this.fileSizeName = fileSizeName;
     }
 
-    public String getFilesuffix() {
-        return filesuffix;
+    public String getFileSuffix() {
+        return fileSuffix;
     }
 
-    public void setFilesuffix(String filesuffix) {
-        this.filesuffix = filesuffix;
+    public void setFileSuffix(String fileSuffix) {
+        this.fileSuffix = fileSuffix;
     }
 
-    public String getFilemd5() {
-        return filemd5;
+    public String getFileMd5() {
+        return fileMd5;
     }
 
-    public void setFilemd5(String filemd5) {
-        this.filemd5 = filemd5;
+    public void setFileMd5(String fileMd5) {
+        this.fileMd5 = fileMd5;
     }
 
-    public Integer getFiletype() {
-        return filetype;
+    public Integer getFileType() {
+        return fileType;
     }
 
-    public void setFiletype(Integer filetype) {
-        this.filetype = filetype;
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
     }
 
-    public String getCreateuserid() {
-        return createuserid;
+    public String getCreateUserName() {
+        return createUserName;
     }
 
-    public void setCreateuserid(String createuserid) {
-        this.createuserid = createuserid;
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
     }
 
-    public String getCreateusername() {
-        return createusername;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateusername(String createusername) {
-        this.createusername = createusername;
-    }
-
-    public String getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

@@ -9,9 +9,9 @@ import com.ustc.chain.core.ContextRequest;
  */
 public class RenameRequest extends ContextRequest {
     /**
-     * 用户id
+     * 用户名
      */
-    private String userid;
+    private String userName;
     /**
      * 文件id
      */
@@ -21,21 +21,18 @@ public class RenameRequest extends ContextRequest {
      */
     private String newName;
 
-    public RenameRequest() {
-    }
-
-    public RenameRequest(String userid, String id, String newName) {
-        this.userid = userid;
+    public RenameRequest(String userName, String id, String newName) {
+        this.userName = userName;
         this.id = id;
         this.newName = newName;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public RenameRequest setUserid(String userid) {
-        this.userid = userid;
+    public RenameRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

@@ -3,8 +3,6 @@ package com.ustc.download.service.impl;
 import com.ustc.download.dao.FileListRepository;
 import com.ustc.download.service.FileService;
 import com.ustc.entity.*;
-import com.ustc.login.service.UserService;
-import com.ustc.upload.dao.DiskFileDao;
 import com.ustc.utils.CapacityUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.bson.types.ObjectId;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -30,25 +27,20 @@ import java.util.List;
 
 @Component
 public class FileServiceImpl implements FileService {
+
     @Autowired
     private FileListRepository fileListRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Autowired
-    private DiskFileDao diskFileDao;
-
-    @Autowired
-    private UserService userService;
-
     /**
-     * @param pageIndex 当前页号
-     * @param pageSize  每页记录数
-     * @param pid       父文件夹id
-     * @param typeCode  文件类型码
-     * @param orderField
-     * @param orderType
+     * @param pageIndex     当前页号
+     * @param pageSize      每页记录数
+     * @param pid           父文件夹id
+     * @param typeCode      文件类型码
+     * @param orderField    orderField
+     * @param orderType     orderType
      * @return 本页所有文件信息
      */
     @Override
@@ -69,21 +61,19 @@ public class FileServiceImpl implements FileService {
             fileListBean.setId(diskFile.getId().toString());
             fileListBean.setPid(diskFile.getPid());
             if (!"0".equals(diskFile.getPid())) {
-                fileListBean.setPname(findOne(diskFile.getPid()).getFilename());
+                fileListBean.setPName(findOne(diskFile.getPid()).getFilename());
             } else {
-                fileListBean.setPname("");
+                fileListBean.setPName("");
             }
-            fileListBean.setFilename(diskFile.getFileName());
-            fileListBean.setFilesize(diskFile.getFileSize());
-            fileListBean.setFilesizename(CapacityUtils.convert(diskFile.getFileSize()));
-            fileListBean.setFilesuffix(diskFile.getFileSuffix());
-            fileListBean.setFilemd5(diskFile.getFileMd5());
-            fileListBean.setFiletype(diskFile.getFileType());
-            fileListBean.setCreateuserid(diskFile.getUserid());
-//            fileListBean.setCreateusername(userService.findOne(diskFile.getUserid()).getUsername());
-            fileListBean.setCreateusername(diskFile.getUserid());
+            fileListBean.setFileName(diskFile.getFileName());
+            fileListBean.setFileSize(diskFile.getFileSize());
+            fileListBean.setFileSizeName(CapacityUtils.convert(diskFile.getFileSize()));
+            fileListBean.setFileSuffix(diskFile.getFileSuffix());
+            fileListBean.setFileMd5(diskFile.getFileMd5());
+            fileListBean.setFileType(diskFile.getFileType());
+            fileListBean.setCreateUserName(diskFile.getUserName());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            fileListBean.setCreatetime(simpleDateFormat.format(diskFile.getCreateTime()));
+            fileListBean.setCreateTime(simpleDateFormat.format(diskFile.getCreateTime()));
 
             rows.add(fileListBean);
         }
@@ -123,20 +113,20 @@ public class FileServiceImpl implements FileService {
         fileBean.setPid(diskFile.getPid());
         // 通过父id来查找父文件夹的名字, 如果父id==0, 则该文件存在于根目录下
         String pName;
-        Query queryPname = Query.query(Criteria.where("_id").is(diskFile.getPid()));
-        DiskFile pFile = this.mongoTemplate.findOne(queryPname, DiskFile.class);
+        Query queryPName = Query.query(Criteria.where("_id").is(diskFile.getPid()));
+        DiskFile pFile = this.mongoTemplate.findOne(queryPName, DiskFile.class);
         pName = pFile == null ? "" : pFile.getFileName();
-        fileBean.setPname(pName);
+        fileBean.setpName(pName);
         fileBean.setFilename(diskFile.getFileName());
         fileBean.setUploadDate(diskFile.getCreateTime());
         fileBean.setFileSuffix(diskFile.getFileSuffix());
-        fileBean.setFilesize(diskFile.getFileSize());
-        fileBean.setUploadUserId(diskFile.getUserid());
-        fileBean.setFilemd5(diskFile.getFileMd5());
-        fileBean.setFiletype(diskFile.getFileType());
-        Query queryUserName = Query.query((Criteria.where("username").is(diskFile.getUserid())));
+        fileBean.setFileSize(diskFile.getFileSize());
+        fileBean.setUploadUserName(diskFile.getUserName());
+        fileBean.setFileMd5(diskFile.getFileMd5());
+        fileBean.setFileType(diskFile.getFileType());
+        Query queryUserName = Query.query((Criteria.where("userName").is(diskFile.getUserName())));
         UserDO user = mongoTemplate.findOne(queryUserName, UserDO.class);
-        fileBean.setUploadUserName(user.getUsername());
+        fileBean.setUploadUserName(user.getUserName());
 
         return fileBean;
     }
@@ -200,7 +190,7 @@ public class FileServiceImpl implements FileService {
 
 
     public void deleteFile(String filename) {
-        Query query = Query.query((CriteriaDefinition) Criteria.where("filename").is(filename));
+        Query query = Query.query(Criteria.where("fileName").is(filename));
         this.mongoTemplate.remove(query, DiskFile.class);
     }
 
@@ -231,10 +221,10 @@ public class FileServiceImpl implements FileService {
         List<FileBean> childrenFiles = findChildrenFiles(id);
         if (!CollectionUtils.isEmpty(childrenFiles)) {
             for (FileBean file : childrenFiles) {
-                bean.setTotalSize(bean.getTotalSize() + file.getFilesize());
-                if (file.getFiletype() == 1) {
+                bean.setTotalSize(bean.getTotalSize() + file.getFileSize());
+                if (file.getFileType() == 1) {
                     bean.setFileNum(bean.getFileNum() + 1);
-                } else if (file.getFiletype() == 0) {
+                } else if (file.getFileType() == 0) {
                     bean.setFolderNum(bean.getFolderNum() + 1);
                 }
                 dgGetDownloadInfo(file.getId(), bean);

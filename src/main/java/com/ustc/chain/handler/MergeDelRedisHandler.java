@@ -22,12 +22,12 @@ public class MergeDelRedisHandler extends Handler {
 
     @Override
     public void doHandler(ContextRequest request, ContextResponse response) {
-        // key: 用户id-uuid-文件id-文件名-块序号
+        // key: 用户名-uuid-文件id-文件名-块序号
         if (request instanceof MergeRequest) {
             MergeRequest bean = (MergeRequest) request;
 
-            String key = bean.getUserid() + "-" + bean.getUuid() + "-" + bean.getFileid() +
-                    "-" + bean.getFilename() + "-*";
+            String key = bean.getUserName() + "-" + bean.getUuid() + "-" + bean.getFileId() +
+                    "-" + bean.getFileName() + "-*";
             stringRedisTemplate.delete(key);
         } else {
             throw new ServiceException(ServiceExceptionEnum.UPLOAD_PARAM_ERROR);

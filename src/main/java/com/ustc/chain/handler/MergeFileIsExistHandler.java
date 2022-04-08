@@ -25,8 +25,8 @@ public class MergeFileIsExistHandler extends Handler {
         if (request instanceof MergeRequest) {
             MergeRequest bean = (MergeRequest) request;
 
-            boolean isExist = diskMd5Dao.findMd5IsExist(bean.getFilemd5());
-            bean.setExistInDiskmd5(isExist);
+            boolean isExist = diskMd5Dao.findMd5IsExist(bean.getFileMd5());
+            bean.setExistInDiskMd5(isExist);
 
             this.updateRequest(bean);
         } else {

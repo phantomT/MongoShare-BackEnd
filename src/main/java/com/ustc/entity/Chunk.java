@@ -37,13 +37,9 @@ public class Chunk implements Serializable {
      */
     private String uuid;
     /**
-     * 用户id
-     */
-     private String userid;
-    /**
      * 用户名
      */
-     private String username;
+    private String userName;
 
     public String getId() {
         return id;
@@ -108,21 +104,12 @@ public class Chunk implements Serializable {
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public Chunk setUserid(String userid) {
-        this.userid = userid;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public Chunk setUsername(String username) {
-        this.username = username;
+    public Chunk setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 }

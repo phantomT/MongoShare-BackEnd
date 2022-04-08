@@ -1,7 +1,7 @@
 package com.ustc.entity;
 
 /**
- * @author 田宝宁
+ * @author 王博
  * @date 2022/03/07
  */
 public class FileSearchBean {
@@ -9,7 +9,7 @@ public class FileSearchBean {
     /**
      * 查询关键字
      */
-    private String filename;
+    private String fileName;
     /**
      * 父文件夹id
      */
@@ -17,40 +17,36 @@ public class FileSearchBean {
     /**
      * 父文件夹名字
      */
-    private String pname;
+    private String pName;
     /**
      * 文件md5
      */
-    private String filemd5;
-    private String fileicon;
+    private String fileMd5;
+    private String fileIcon;
     /**
      * 文件类型码
      */
-    private String typecode;
+    private String typeCode;
     /**
      * 文件后缀
      */
-    private String filesuffix;
+    private String fileSuffix;
     /**
      * 文件大小
      */
-    private String filesize;
+    private String fileSize;
     /**
      * 文件类型
      */
-    private String filetype;
-    /**
-     * 用户id
-     */
-    private String createuserid;
+    private String fileType;
     /**
      * 用户名
      */
-    private String createusername;
+    private String createUserName;
     /**
      * 创建时间
      */
-    private String createtime;
+    private String createTime;
 
     public String getId() {
         return id;
@@ -61,12 +57,12 @@ public class FileSearchBean {
         return this;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public FileSearchBean setFilename(String filename) {
-        this.filename = filename;
+    public FileSearchBean setFileName(String fileName) {
+        this.fileName = fileName;
         return this;
     }
 
@@ -79,93 +75,84 @@ public class FileSearchBean {
         return this;
     }
 
-    public String getPname() {
-        return pname;
+    public String getPName() {
+        return pName;
     }
 
-    public FileSearchBean setPname(String pname) {
-        this.pname = pname;
+    public FileSearchBean setPName(String pName) {
+        this.pName = pName;
         return this;
     }
 
-    public String getFilemd5() {
-        return filemd5;
+    public String getFileMd5() {
+        return fileMd5;
     }
 
-    public FileSearchBean setFilemd5(String filemd5) {
-        this.filemd5 = filemd5;
+    public FileSearchBean setFileMd5(String fileMd5) {
+        this.fileMd5 = fileMd5;
         return this;
     }
 
-    public String getFileicon() {
-        return fileicon;
+    public String getFileIcon() {
+        return fileIcon;
     }
 
-    public FileSearchBean setFileicon(String fileicon) {
-        this.fileicon = fileicon;
+    public FileSearchBean setFileIcon(String fileIcon) {
+        this.fileIcon = fileIcon;
         return this;
     }
 
-    public String getTypecode() {
-        return typecode;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public FileSearchBean setTypecode(String typecode) {
-        this.typecode = typecode;
+    public FileSearchBean setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
         return this;
     }
 
-    public String getFilesuffix() {
-        return filesuffix;
+    public String getFileSuffix() {
+        return fileSuffix;
     }
 
-    public FileSearchBean setFilesuffix(String filesuffix) {
-        this.filesuffix = filesuffix;
+    public FileSearchBean setFileSuffix(String fileSuffix) {
+        this.fileSuffix = fileSuffix;
         return this;
     }
 
-    public String getFilesize() {
-        return filesize;
+    public String getFileSize() {
+        return fileSize;
     }
 
-    public FileSearchBean setFilesize(String filesize) {
-        this.filesize = filesize;
+    public FileSearchBean setFileSize(String fileSize) {
+        this.fileSize = fileSize;
         return this;
     }
 
-    public String getFiletype() {
-        return filetype;
+    public String getFileType() {
+        return fileType;
     }
 
-    public FileSearchBean setFiletype(String filetype) {
-        this.filetype = filetype;
+    public FileSearchBean setFileType(String fileType) {
+        this.fileType = fileType;
         return this;
     }
 
-    public String getCreateuserid() {
-        return createuserid;
+    public String getCreateUserName() {
+        return createUserName;
     }
 
-    public FileSearchBean setCreateuserid(String createuserid) {
-        this.createuserid = createuserid;
+    public FileSearchBean setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
         return this;
     }
 
-    public String getCreateusername() {
-        return createusername;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public FileSearchBean setCreateusername(String createusername) {
-        this.createusername = createusername;
-        return this;
-    }
-
-    public String getCreatetime() {
-        return createtime;
-    }
-
-    public FileSearchBean setCreatetime(String createtime) {
-        this.createtime = createtime;
+    public FileSearchBean setCreateTime(String createTime) {
+        this.createTime = createTime;
         return this;
     }
 }

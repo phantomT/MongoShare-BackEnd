@@ -10,14 +10,13 @@ import java.util.Date;
 public class FileBean implements Serializable {
     private String id;
     private String pid;
-    private String pname;
+    private String pName;
     private String filename;
     private Date uploadDate;
     private String fileSuffix;
-    private long filesize;
-    private String uploadUserId;
-    private String filemd5;
-    private Integer filetype;
+    private long fileSize;
+    private String fileMd5;
+    private Integer fileType;
     private String uploadUserName;
 
     public String getId() {
@@ -36,12 +35,12 @@ public class FileBean implements Serializable {
         this.pid = pid;
     }
 
-    public String getPname() {
-        return this.pname;
+    public String getpName() {
+        return this.pName;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
     public String getFilename() {
@@ -68,18 +67,17 @@ public class FileBean implements Serializable {
         this.fileSuffix = fileSuffix;
     }
 
-    public long getFilesize() {
-        return this.filesize;
+    public long getFileSize() {
+        return this.fileSize;
     }
 
-    public void setFilesize(long filesize) {
-        this.filesize = filesize;
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
     }
 
     public String getUploadUserName() {
         return this.uploadUserName;
     }
-
 
     public void setUploadUserName(String uploadUserName) {
 
@@ -87,52 +85,34 @@ public class FileBean implements Serializable {
 
     }
 
+    public String getFileMd5() {
 
-    public String getFilemd5() {
-
-        return this.filemd5;
-
-    }
-
-
-    public void setFilemd5(String filemd5) {
-
-        this.filemd5 = filemd5;
+        return this.fileMd5;
 
     }
 
+    public void setFileMd5(String fileMd5) {
 
-    public Integer getFiletype() {
-
-        return this.filetype;
-
-    }
-
-
-    public void setFiletype(Integer filetype) {
-
-        this.filetype = filetype;
+        this.fileMd5 = fileMd5;
 
     }
 
+    public Integer getFileType() {
 
-    public String getUploadUserId() {
-
-        return this.uploadUserId;
+        return this.fileType;
 
     }
 
+    public void setFileType(Integer fileType) {
 
-    public void setUploadUserId(String uploadUserId) {
-
-        this.uploadUserId = uploadUserId;
+        this.fileType = fileType;
 
     }
 
 
     @Override
     public String toString() {
-        return "FileBean{id='" + this.id + '\'' + ", pid='" + this.pid + '\'' + ", pname='" + this.pname + '\'' + ", filename='" + this.filename + '\'' + ", uploadDate=" + this.uploadDate + ", fileSuffix='" + this.fileSuffix + '\'' + ", filesize=" + this.filesize + ", uploadUserId='" + this.uploadUserId + '\'' + ", filemd5='" + this.filemd5 + '\'' + ", filetype=" + this.filetype + ", uploadUserName='" + this.uploadUserName + '\'' + '}';
+        return "FileBean{id='" + this.id + '\'' + ", pid='" + this.pid + '\'' + ", pname='" + this.pName + '\'' + ", filename='" + this.filename + '\'' + ", uploadDate=" + this.uploadDate + ", fileSuffix='" + this.fileSuffix + '\'' + ", filesize=" + this.fileSize + ", filemd5='" + this.fileMd5 + '\'' + ", filetype=" + this.fileType + ", uploadUserName='" + this.uploadUserName + '\'' + '}';
     }
 
 }

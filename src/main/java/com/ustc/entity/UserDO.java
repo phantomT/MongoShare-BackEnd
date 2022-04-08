@@ -17,7 +17,7 @@ public class UserDO {
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
     /**
      * 密码
      */
@@ -40,12 +40,12 @@ public class UserDO {
         return this;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public UserDO setUsername(String username) {
-        this.username = username;
+    public UserDO setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

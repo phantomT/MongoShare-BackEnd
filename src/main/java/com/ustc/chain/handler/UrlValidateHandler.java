@@ -25,7 +25,7 @@ public class UrlValidateHandler extends Handler {
             ValidateUtils.validate(urlRequest.getFileName(), "文件名");
             ValidateUtils.validate(urlRequest.getUrl(), "url");
             ValidateUtils.validate(urlRequest.getPid(), "文件夹pid");
-            ValidateUtils.validate(urlRequest.getUserId(), "用户id");
+            ValidateUtils.validate(urlRequest.getUserName(), "用户名");
 
             System.out.println("URL上传验证完成");
         } else {

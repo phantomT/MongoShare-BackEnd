@@ -55,23 +55,22 @@ public class MergeSolrHandler extends Handler {
                             lists.add(map);
                         }
                     }
-                    String pname = JsonUtils.objectToJson(lists);
+                    String pName = JsonUtils.objectToJson(lists);
 
                     FileSearchBean fileSearchBean = new FileSearchBean();
                     fileSearchBean.setId(String.valueOf(diskFile.getId()));
-                    fileSearchBean.setFilename(diskFile.getFileName());
+                    fileSearchBean.setFileName(diskFile.getFileName());
                     fileSearchBean.setPid(diskFile.getPid());
-                    fileSearchBean.setFilemd5(diskFile.getFileMd5());
-                    fileSearchBean.setPname(pname);
-                    fileSearchBean.setFilemd5("");
-                    fileSearchBean.setFileicon("");
-                    fileSearchBean.setTypecode("");
-                    fileSearchBean.setFilesuffix("");
-                    fileSearchBean.setFilesize("");
-                    fileSearchBean.setFiletype(String.valueOf(FileType.FOLDER.getTypeCode()));
-                    fileSearchBean.setCreateuserid(diskFile.getUserid());
-                    fileSearchBean.setCreateusername(diskFile.getUserid());
-                    fileSearchBean.setCreatetime(DateUtils.formatDate(diskFile.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+                    fileSearchBean.setFileMd5(diskFile.getFileMd5());
+                    fileSearchBean.setPName(pName);
+                    fileSearchBean.setFileMd5("");
+                    fileSearchBean.setFileIcon("");
+                    fileSearchBean.setTypeCode("");
+                    fileSearchBean.setFileSuffix("");
+                    fileSearchBean.setFileSize("");
+                    fileSearchBean.setFileType(String.valueOf(FileType.FOLDER.getTypeCode()));
+                    fileSearchBean.setCreateUserName(diskFile.getUserName());
+                    fileSearchBean.setCreateTime(DateUtils.formatDate(diskFile.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
 
                     try {
                         fileSearchService.add(fileSearchBean);
@@ -82,25 +81,24 @@ public class MergeSolrHandler extends Handler {
             }
             // 对文件的操作
             if (!bean.isExistInDiskFile()) {
-                //获取pname
+                //获取pName
                 List<Map<String,Object>> lists=new ArrayList<>();
-                getPname(lists, bean.getPid());
-                String pname=JsonUtils.objectToJson(lists);
+                getPName(lists, bean.getPid());
+                String pName=JsonUtils.objectToJson(lists);
 
                 FileSearchBean fileSearchBean=new FileSearchBean();
-                fileSearchBean.setId(bean.getFileid());
-                fileSearchBean.setFilename(bean.getFilename());
+                fileSearchBean.setId(bean.getFileId());
+                fileSearchBean.setFileName(bean.getFileName());
                 fileSearchBean.setPid(bean.getPid());
-                fileSearchBean.setPname(pname);
-                fileSearchBean.setFilemd5(bean.getFilemd5());
-                fileSearchBean.setFileicon("");
-                fileSearchBean.setTypecode("");
-                fileSearchBean.setFilesuffix(bean.getFileSuffix());
-                fileSearchBean.setFilesize(CapacityUtils.convert(bean.getTotalSize()));
-                fileSearchBean.setFiletype(String.valueOf(FileType.FILE.getTypeCode()));
-                fileSearchBean.setCreateuserid(bean.getUserid());
-                fileSearchBean.setCreateusername(bean.getUsername());
-                fileSearchBean.setCreatetime(DateUtils.formatDate(new Date()));
+                fileSearchBean.setPName(pName);
+                fileSearchBean.setFileMd5(bean.getFileMd5());
+                fileSearchBean.setFileIcon("");
+                fileSearchBean.setTypeCode("");
+                fileSearchBean.setFileSuffix(bean.getFileSuffix());
+                fileSearchBean.setFileSize(CapacityUtils.convert(bean.getTotalSize()));
+                fileSearchBean.setFileType(String.valueOf(FileType.FILE.getTypeCode()));
+                fileSearchBean.setCreateUserName(bean.getUserName());
+                fileSearchBean.setCreateTime(DateUtils.formatDate(new Date()));
                 try {
                     fileSearchService.add(fileSearchBean);
                 } catch (SolrServerException e) {
@@ -114,18 +112,18 @@ public class MergeSolrHandler extends Handler {
 
 
     /**
-     * 递归获取pname
-     * @param lists
-     * @param pid
+     * 递归获取pName
+     * @param lists lists
+     * @param pid   pid
      */
-    private void getPname(List<Map<String, Object>> lists, String pid) {
+    private void getPName(List<Map<String, Object>> lists, String pid) {
         if (!"0".equals(pid)) {
-            DiskFile diskFile = diskFileDao.findFile(new ObjectId(pid));
+            DiskFile diskFile = diskFileDao.findFileById(new ObjectId(pid));
             Map<String, Object> map = new HashMap<>();
             map.put("id", diskFile.getId());
             map.put("name", diskFile.getFileName());
             lists.add(map);
-            getPname(lists, diskFile.getPid());
+            getPName(lists, diskFile.getPid());
         }
     }
 }

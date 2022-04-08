@@ -27,9 +27,9 @@ public class UrlUploadRequest extends ContextRequest {
      */
     private String fileMd5;
     /**
-     * 上传文件的用户Id
+     * 上传文件的用户名
      */
-    private String userId;
+    private String userName;
     /**
      * UUID
      */
@@ -113,12 +113,12 @@ public class UrlUploadRequest extends ContextRequest {
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public UrlUploadRequest setUserId(String userId) {
-        this.userId = userId;
+    public UrlUploadRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

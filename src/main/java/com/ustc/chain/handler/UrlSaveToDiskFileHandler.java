@@ -31,7 +31,7 @@ public class UrlSaveToDiskFileHandler extends Handler {
             UrlUploadRequest bean = (UrlUploadRequest) request;
 
             // 通过userid-pid-filename-fileMd5查找文件是否存在于DiskFile表中
-            DiskFile diskFile = diskFileDao.findFile(bean.getUserId(), bean.getPid(),
+            DiskFile diskFile = diskFileDao.findFile(bean.getUserName(), bean.getPid(),
                     bean.getFileName(), bean.getFileMd5());
 
             // 如果不存在用户表中, 则存入表中
@@ -43,7 +43,7 @@ public class UrlSaveToDiskFileHandler extends Handler {
                 diskFile.setFileSize(bean.getTotalSize());
                 diskFile.setFileType(FileType.FILE.getTypeCode());
                 diskFile.setFileSuffix(bean.getFileSuffix());
-                diskFile.setUserid(bean.getUserId());
+                diskFile.setUserName(bean.getUserName());
                 diskFile.setCreateTime(new Date());
 
                 diskFileDao.insertOne(diskFile);
@@ -54,7 +54,7 @@ public class UrlSaveToDiskFileHandler extends Handler {
                 diskFileDao.insertOne(diskFileNew);
             }
             this.updateRequest(bean);
-            System.out.println("diskFile保存时的Userid: " + diskFile.getUserid());
+            System.out.println("diskFile保存时的Userid: " + diskFile.getUserName());
         } else {
             throw new ServiceException(ServiceExceptionEnum.UPLOAD_PARAM_ERROR);
         }

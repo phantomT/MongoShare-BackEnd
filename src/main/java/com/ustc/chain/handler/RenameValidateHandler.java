@@ -25,7 +25,7 @@ public class RenameValidateHandler extends Handler {
 
             ValidateUtils.validate(renameRequest.getId(), "文件id");
             ValidateUtils.validate(renameRequest.getNewName(), "新名称");
-            ValidateUtils.validate(renameRequest.getUserid(), "用户id");
+            ValidateUtils.validate(renameRequest.getUserName(), "用户名");
         } else {
             throw new ServiceException(ServiceExceptionEnum.RENAME_PARAM_ERROR);
         }

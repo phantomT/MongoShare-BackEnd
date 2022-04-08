@@ -28,7 +28,7 @@ public interface UserService {
 
     // 用于新用户自动注册
     // 根据用户名查询用户
-    boolean findUserByUsername(String username);
+    boolean userIsExist(String username);
 
     // 用于用户名和密码验证
     // 根据用户名查询密码

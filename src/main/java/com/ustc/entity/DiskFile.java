@@ -44,9 +44,9 @@ public class DiskFile {
      */
     private String fileSuffix;
     /**
-     * 用户id
+     * 用户名
      */
-    private String userid;
+    private String userName;
     /**
      * 创建时间
      */
@@ -124,12 +124,12 @@ public class DiskFile {
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public DiskFile setUserid(String userid) {
-        this.userid = userid;
+    public DiskFile setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 

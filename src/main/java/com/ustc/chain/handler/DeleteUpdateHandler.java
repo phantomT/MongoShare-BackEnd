@@ -7,7 +7,7 @@ import com.ustc.chain.param.DeleteRequest;
 import com.ustc.entity.DiskFile;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
-import com.ustc.filecommon.dao.FileDao;
+import com.ustc.fileCommon.dao.FileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import java.util.Queue;
 
 /**
  * @author 田宝宁
- * @date 2022/4/1
+ * @date 2022/04/01
  */
 @Component
 public class DeleteUpdateHandler extends Handler {
@@ -47,7 +47,7 @@ public class DeleteUpdateHandler extends Handler {
                     fileDao.removeFolder(record.getPid(), record.getId());
                 } else {
                     // 如果该文件不是文件夹
-                    fileDao.removeDiskFile(record.getUserid(), record.getId());
+                    fileDao.removeDiskFile(record.getUserName(), record.getId());
                     fileDao.removeDiskMd5(record.getFileMd5());
                     fileDao.removeDiskUrl(record.getFileMd5());
                 }

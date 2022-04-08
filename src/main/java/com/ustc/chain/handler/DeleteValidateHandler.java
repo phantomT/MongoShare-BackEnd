@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * @author 田宝宁
- * @date 2022/4/1
+ * @date 2022/04/01
  */
 @Component
 public class DeleteValidateHandler extends Handler {
@@ -22,7 +22,7 @@ public class DeleteValidateHandler extends Handler {
         if (request instanceof DeleteRequest) {
             DeleteRequest deleteRequest = (DeleteRequest) request;
 
-            ValidateUtils.validate(deleteRequest.getUserid(), "用户id");
+            ValidateUtils.validate(deleteRequest.getUserName(), "用户名");
             ValidateUtils.validate(deleteRequest.getIdList(), "需要删除的记录");
 
         } else {

@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 @Api(tags = "文件上传")
 @RestController
-@RequestMapping("/disk/fileupload")
+@RequestMapping("/disk/fileUpload")
 public class FileUploadController {
 
     @Autowired
@@ -56,9 +56,8 @@ public class FileUploadController {
         BeanUtils.copyProperties(chunkPojo, chunk);
         chunk.setBytes(file.getBytes());
         // 设置用户id
-        System.out.println("ChunkPojo中收到的Userid: "+chunkPojo.getUserid());
-        chunk.setUserid(chunkPojo.getUserid());
-        chunk.setUsername(chunkPojo.getUserid());
+        System.out.println("ChunkPojo中收到的UserName: "+chunkPojo.getUserName());
+        chunk.setUserName(chunkPojo.getUserName());
 
         // 4. 调用切块上传接口
         uploadFileService.uploadChunk(chunk);
@@ -67,10 +66,10 @@ public class FileUploadController {
     }
 
     @ApiOperation("检查文件是否存在")
-    @ApiImplicitParam(name = "filemd5", value = "文件md5", dataTypeClass = String.class, required = true)
+    @ApiImplicitParam(name = "fileMd5", value = "文件md5", dataTypeClass = String.class, required = true)
     @PostMapping("/checkFile")
-    public CommonResult<Integer> checkFile(String filemd5) {
-        return CommonResultUtils.success(uploadFileService.checkFile(filemd5));
+    public CommonResult<Integer> checkFile(String fileMd5) {
+        return CommonResultUtils.success(uploadFileService.checkFile(fileMd5));
     }
 
     @ApiOperation("合并切块")
@@ -81,8 +80,8 @@ public class FileUploadController {
         System.out.println("进入合并切块");
         // 获取用户信息
         System.out.println("mergeChunk中收到的uuid: " + bean.getUuid());
-        System.out.println("mergeChunk中收到的Userid: "+bean.getUserid());
-        bean.setUsername(bean.getUserid());
+        System.out.println("mergeChunk中收到的UserName: "+bean.getUserName());
+        bean.setUserName(bean.getUserName());
         // 合并切块
         uploadFileService.mergeChunk(bean);
         return CommonResultUtils.success("切块合并成功");
@@ -90,20 +89,20 @@ public class FileUploadController {
 
     @ApiOperation("URL上传")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userid", value = "操作的用户id", dataTypeClass = String.class, required = true),
+            @ApiImplicitParam(name = "userName", value = "操作的用户", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "pid", value = "上传的目的文件夹", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "url", value = "上传文件的URL", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "filename", value = "上传文件的文件名", dataTypeClass = String.class, required = true),
             @ApiImplicitParam(name = "token", dataTypeClass = String.class)
     })
     @PostMapping("/urlUp")
-    public CommonResult<String> urlUp(@RequestParam("userid") String userid, @RequestParam("pid") String pid,
+    public CommonResult<String> urlUp(@RequestParam("userName") String userName, @RequestParam("pid") String pid,
                                       @RequestParam("url") String Url, @RequestParam("filename") String fileName,
                                       String token)
             throws ServiceException, IOException, InterruptedException {
-        System.out.println("使用URL上传");
 
-        uploadFileService.uploadUrlFile(userid, Url, fileName, pid);
+        System.out.println("使用URL上传");
+        uploadFileService.uploadUrlFile(userName, Url, fileName, pid);
 
         return CommonResultUtils.success("URL上传文件成功");
     }

@@ -22,8 +22,8 @@ public class ChunkPojo {
     private Integer chunk;
     @ApiModelProperty(value = "切块数量", required = true, example = "10")
     private Integer chunks;
-    @ApiModelProperty(value = "用户id", required = true)
-    private String userid;
+    @ApiModelProperty(value = "用户名", required = true)
+    private String userName;
 
     public String getUuid() {
         return uuid;
@@ -79,12 +79,12 @@ public class ChunkPojo {
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public ChunkPojo setUserid(String userid) {
-        this.userid = userid;
+    public ChunkPojo setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 }

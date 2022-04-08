@@ -85,7 +85,7 @@ public class StoreServiceImpl implements UploadStoreService {
         // 获取文件大小
         int fileSize = connection.getContentLength();
         // 保存文件大小
-        bean.setFilesize(fileSize);
+        bean.setTotalSize(fileSize);
         System.out.println("文件总共大小：" + fileSize + "字节");
         // 文件分块的数量
         int blockNum = fileSize / blockSize;

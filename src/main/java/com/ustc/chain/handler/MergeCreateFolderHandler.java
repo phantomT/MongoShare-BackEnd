@@ -31,11 +31,11 @@ public class MergeCreateFolderHandler extends Handler {
     public void doHandler(ContextRequest request, ContextResponse response) {
         if (request instanceof MergeRequest) {
             MergeRequest bean = (MergeRequest) request;
-            String relativePath = bean.getRelativepath();
+            String relativePath = bean.getRelativePath();
 
             if (!StringUtils.isEmpty(relativePath)) {
                 String[] names = relativePath.split("/");
-                String userid = bean.getUserid();
+                String username = bean.getUserName();
                 String pid = bean.getPid();
 
                 List<DiskFile> folders = new ArrayList<>();
@@ -43,7 +43,7 @@ public class MergeCreateFolderHandler extends Handler {
                 for (int i = 0; i < names.length - 1; i++) {
                     String name = names[i];
                     // 先判断是否存在该文件夹
-                    DiskFile diskFile = diskFileDao.findFolder(userid, pid, name);
+                    DiskFile diskFile = diskFileDao.findFolder(username, pid, name);
 
                     // 如果不存在该文件夹, 则创建该文件夹, 否则不需要创建
                     if (diskFile == null) {
@@ -51,7 +51,7 @@ public class MergeCreateFolderHandler extends Handler {
                         diskFile.setFileType(FileType.FOLDER.getTypeCode());
                         diskFile.setFileName(name);
                         diskFile.setPid(pid);
-                        diskFile.setUserid(userid);
+                        diskFile.setUserName(username);
                         diskFile.setFileSize(0L);
                         diskFile.setCreateTime(new Date());
                         // 给文件夹设置个随机object-id

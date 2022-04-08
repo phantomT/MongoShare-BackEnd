@@ -23,11 +23,11 @@ public class MergeRequest extends ContextRequest {
     /**
      * 前端上传文件id
      */
-    private String fileid;
+    private String fileId;
     /**
      * 文件名
      */
-    private String filename;
+    private String fileName;
     /**
      * 文件大小
      */
@@ -35,26 +35,22 @@ public class MergeRequest extends ContextRequest {
     /**
      * 文件md5
      */
-    private String filemd5;
+    private String fileMd5;
     /**
      * 用于文件夹上传时,保存相对路径
      */
-    private String relativepath;
-    /**
-     * 用户id
-     */
-    private String userid;
+    private String relativePath;
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
 
     //与MergeFileBean不同的内容
 
     /**
      * 在文件md5表中是否存在
      */
-    private boolean existInDiskmd5;
+    private boolean existInDiskMd5;
     /**
      * 在文件表中是否存在
      */
@@ -90,21 +86,21 @@ public class MergeRequest extends ContextRequest {
         return this;
     }
 
-    public String getFileid() {
-        return fileid;
+    public String getFileId() {
+        return fileId;
     }
 
-    public MergeRequest setFileid(String fileid) {
-        this.fileid = fileid;
+    public MergeRequest setFileId(String fileId) {
+        this.fileId = fileId;
         return this;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public MergeRequest setFilename(String filename) {
-        this.filename = filename;
+    public MergeRequest setFileName(String fileName) {
+        this.fileName = fileName;
         return this;
     }
 
@@ -117,48 +113,39 @@ public class MergeRequest extends ContextRequest {
         return this;
     }
 
-    public String getFilemd5() {
-        return filemd5;
+    public String getFileMd5() {
+        return fileMd5;
     }
 
-    public MergeRequest setFilemd5(String filemd5) {
-        this.filemd5 = filemd5;
+    public MergeRequest setFileMd5(String fileMd5) {
+        this.fileMd5 = fileMd5;
         return this;
     }
 
-    public String getRelativepath() {
-        return relativepath;
+    public String getRelativePath() {
+        return relativePath;
     }
 
-    public MergeRequest setRelativepath(String relativepath) {
-        this.relativepath = relativepath;
+    public MergeRequest setRelativePath(String relativePath) {
+        this.relativePath = relativePath;
         return this;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public MergeRequest setUserid(String userid) {
-        this.userid = userid;
+    public MergeRequest setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
-    public String getUsername() {
-        return username;
+    public boolean isExistInDiskMd5() {
+        return existInDiskMd5;
     }
 
-    public MergeRequest setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public boolean isExistInDiskmd5() {
-        return existInDiskmd5;
-    }
-
-    public MergeRequest setExistInDiskmd5(boolean existInDiskmd5) {
-        this.existInDiskmd5 = existInDiskmd5;
+    public MergeRequest setExistInDiskMd5(boolean existInDiskMd5) {
+        this.existInDiskMd5 = existInDiskMd5;
         return this;
     }
 

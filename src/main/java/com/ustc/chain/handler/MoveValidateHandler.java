@@ -24,7 +24,7 @@ public class MoveValidateHandler extends Handler {
             MoveRequest moveRequest = (MoveRequest) request;
 
             ValidateUtils.validate(moveRequest.getPid(), "选择的文件夹");
-            ValidateUtils.validate(moveRequest.getUserid(), "用户id");
+            ValidateUtils.validate(moveRequest.getUserName(), "用户名");
             ValidateUtils.validate(moveRequest.getIdList(), "需要移动的记录");
 
         } else {

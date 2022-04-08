@@ -28,8 +28,7 @@ public class ChunkValidateHandler extends Handler {
             ValidateUtils.validate(chunk.getSize(), "文件大小");
             ValidateUtils.validate(chunk.getChunk(), "切块序号");
             ValidateUtils.validate(chunk.getChunks(), "切块数量");
-            ValidateUtils.validate(chunk.getUserid(), "用户ID");
-            ValidateUtils.validate(chunk.getUsername(), "用户姓名");
+            ValidateUtils.validate(chunk.getUserName(), "用户姓名");
         } else {
             throw new ServiceException(ServiceExceptionEnum.UPLOAD_PARAM_ERROR);
         }

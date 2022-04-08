@@ -65,7 +65,7 @@ public class CapacityUtils {
         if (size == 0L) {
             return "-";
         }
-        String str = "";
+        String str;
         if (size < 1024L) {
             str = size + "B";
         } else if (1024.0D <= size && size < 1048576.0D) {

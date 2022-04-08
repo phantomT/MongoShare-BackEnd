@@ -30,27 +30,27 @@ public class MergeSaveToDiskFileHandler extends Handler {
         if (request instanceof MergeRequest) {
             MergeRequest bean = (MergeRequest) request;
 
-            // 通过userid-pid-filename-filemd5查找文件是否存在于DiskFile表中
-            DiskFile diskFile = diskFileDao.findFile(bean.getUserid(), bean.getPid(),
-                    bean.getFilename(), bean.getFilemd5());
+            // 通过userName-pid-fileName-fileMd5查找文件是否存在于DiskFile表中
+            DiskFile diskFile = diskFileDao.findFile(bean.getUserName(), bean.getPid(),
+                    bean.getFileName(), bean.getFileMd5());
             bean.setExistInDiskFile(diskFile == null);
 
             // 如果不存在用户表中, 则存入表中
             if (diskFile == null) {
                 diskFile = new DiskFile();
                 diskFile.setPid(bean.getPid());
-                diskFile.setFileMd5(bean.getFilemd5());
-                diskFile.setFileName(bean.getFilename());
+                diskFile.setFileMd5(bean.getFileMd5());
+                diskFile.setFileName(bean.getFileName());
                 diskFile.setFileSize(bean.getTotalSize());
                 diskFile.setFileType(FileType.FILE.getTypeCode());
-                diskFile.setFileSuffix(FilenameUtils.getExtension(bean.getFilename()));
-                diskFile.setUserid(bean.getUserid());
+                diskFile.setFileSuffix(FilenameUtils.getExtension(bean.getFileName()));
+                diskFile.setUserName(bean.getUserName());
                 diskFile.setCreateTime(new Date());
 
                 diskFileDao.insertOne(diskFile);
             }
             this.updateRequest(bean);
-            System.out.println("diskFile保存时的Userid: "+diskFile.getUserid());
+            System.out.println("diskFile保存时的Userid: "+diskFile.getUserName());
         } else {
             throw new ServiceException(ServiceExceptionEnum.UPLOAD_PARAM_ERROR);
         }

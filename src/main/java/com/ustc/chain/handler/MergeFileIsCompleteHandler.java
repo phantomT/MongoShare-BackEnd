@@ -31,7 +31,7 @@ public class MergeFileIsCompleteHandler extends Handler {
             }
             // 累加计算所有切块大小
             for (RedisChunkTemp temp : chunkTemps) {
-                size += temp.getCurrentsize();
+                size += temp.getCurrentSize();
             }
             // 如果前端数据和累计的切块大小不符合那就上传失败
             if (size != totalSize) {

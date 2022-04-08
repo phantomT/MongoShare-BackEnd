@@ -31,6 +31,7 @@ import java.util.UUID;
 @Component
 @Transactional
 public class UploadFileServiceImpl implements UploadFileService {
+
     @Autowired
     private SpringContentUtils scu;
     @Autowired
@@ -70,29 +71,29 @@ public class UploadFileServiceImpl implements UploadFileService {
     }
 
     /**
-     * 如果是文件上传, 锁的名字为 filemd5
-     * 如果是文件夹上传, 则锁的名字为 userid-folderid-rootname
+     * 如果是文件上传, 锁的名字为 fileMd5
+     * 如果是文件夹上传, 则锁的名字为 userName-folderId-rootName
      *
      * @param bean MergeFileBean
      */
     @Override
     public void mergeChunk(MergeFileBean bean) throws SolrServerException, IOException {
         // 1. 获取文件的md5, 将其当作锁
-        String lockname = bean.getFilemd5();
-        System.out.println(bean.getFilemd5());
+        String lockName = bean.getFileMd5();
+        System.out.println(bean.getFileMd5());
         // 2. 确保相同的字符串指向常量池中的同一个对象
         Interner<String> lock = Lock.getStringPool();
 
         // 3. 如果是文件夹
-        if (!bean.getRelativepath().isEmpty()) {
-            String[] names = bean.getRelativepath().split("/");
-            String userid = bean.getUserid();
+        if (!bean.getRelativePath().isEmpty()) {
+            String[] names = bean.getRelativePath().split("/");
+            String userName = bean.getUserName();
             String folderId = bean.getPid();
 
-            lockname = userid + "-" + folderId + "-" + names[0];
+            lockName = userName + "-" + folderId + "-" + names[0];
         }
         // 上锁
-        synchronized (lock.intern(lockname)) {
+        synchronized (lock.intern(lockName)) {
             MergeRequest mergeRequest = new MergeRequest();
             BeanUtils.copyProperties(bean, mergeRequest);
 
@@ -129,12 +130,12 @@ public class UploadFileServiceImpl implements UploadFileService {
     }
 
     @Override
-    public void uploadUrlFile(String userid, String fileUrl,
+    public void uploadUrlFile(String userName, String fileUrl,
                               String fileName, String pid) throws IOException {
         UrlUploadFileBean urlBean = new UrlUploadFileBean(fileUrl);
         urlBean.setFileName(fileName);
         urlBean.setPid(pid);
-        urlBean.setUserId(userid);
+        urlBean.setUserName(userName);
 
         String uuid = UUID.randomUUID().toString();
         urlBean.setUuid(uuid);

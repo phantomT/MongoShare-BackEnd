@@ -6,7 +6,7 @@ import com.ustc.chain.core.Handler;
 import com.ustc.chain.param.RenameRequest;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
-import com.ustc.filecommon.dao.FileDao;
+import com.ustc.fileCommon.dao.FileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

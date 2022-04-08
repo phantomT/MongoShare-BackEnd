@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
          "com.ustc.upload.controller",
          "com.ustc.login.controller",
          "com.ustc.download.controller",
-         "com.ustc.filecommon.controller"})
+         "com.ustc.fileCommon.controller"})
 public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

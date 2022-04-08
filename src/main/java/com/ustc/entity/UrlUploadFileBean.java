@@ -7,13 +7,37 @@ import java.io.Serializable;
  * @date 2022/04/05
  */
 public class UrlUploadFileBean implements Serializable {
+    /**
+     * 文件URL
+     */
     private String url;
+    /**
+     * 父文件夹
+     */
     private String pid;
+    /**
+     * 文件名
+     */
     private String fileName;
+    /**
+     * 文件MD5
+     */
     private String fileMd5;
-    private String userId;
+    /**
+     * 上传的用户名
+     */
+    private String userName;
+    /**
+     * 文件Id
+     */
     private String fileId;
+    /**
+     * UUID
+     */
     private String uuid;
+    /**
+     * 文件总大小
+     */
     private Long totalSize;
 
     public UrlUploadFileBean(String url) {
@@ -83,12 +107,12 @@ public class UrlUploadFileBean implements Serializable {
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public UrlUploadFileBean setUserId(String userId) {
-        this.userId = userId;
+    public UrlUploadFileBean setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 }

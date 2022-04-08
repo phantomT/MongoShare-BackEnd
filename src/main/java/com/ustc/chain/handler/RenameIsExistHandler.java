@@ -7,7 +7,7 @@ import com.ustc.chain.param.RenameRequest;
 import com.ustc.entity.DiskFile;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
-import com.ustc.filecommon.dao.FileDao;
+import com.ustc.fileCommon.dao.FileDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class RenameIsExistHandler extends Handler {
                 throw new ServiceException(ServiceExceptionEnum.FILE_NOT_EXIST);
             }
             // 判断是否存在同名文件
-            if (fileDao.findIsExistBySameNameRecord(diskFile.getUserid(), diskFile.getPid(), id, newName, diskFile.getFileType())) {
+            if (fileDao.findIsExistBySameNameRecord(diskFile.getUserName(), diskFile.getPid(), id, newName, diskFile.getFileType())) {
                 throw new ServiceException(ServiceExceptionEnum.SAME_NAME_EXIST);
             }
 

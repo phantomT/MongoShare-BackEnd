@@ -32,10 +32,10 @@ public interface UploadFileService {
 
     /**
      * 使用责任链模式上传URL文件
-     * @param userid    用户id
+     * @param userName    用户名
      * @param fileUrl   文件的Url
      * @param fileName  文件名
      * @param pid       父文件夹
      */
-    void uploadUrlFile(String userid, String fileUrl, String fileName, String pid) throws IOException, InterruptedException;
+    void uploadUrlFile(String userName, String fileUrl, String fileName, String pid) throws IOException, InterruptedException;
 }

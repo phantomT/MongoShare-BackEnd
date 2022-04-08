@@ -28,15 +28,15 @@ public class MergeSaveToDiskMd5Handler extends Handler {
             MergeRequest bean = (MergeRequest) request;
 
             // 如果在DiskMd5表中不存在
-            if (!bean.isExistInDiskmd5()) {
+            if (!bean.isExistInDiskMd5()) {
                 RedisChunkTemp redisChunkTemp = bean.getChunkTemps().get(0);
                 // 设置DiskMd5参数
                 // 存入集合中的文档不设id, 使用mongoDB自带的ObjectId
                 DiskMd5 diskMd5 = new DiskMd5();
                 diskMd5.setFileName(redisChunkTemp.getName());
-                diskMd5.setFileMd5(bean.getFilemd5());
+                diskMd5.setFileMd5(bean.getFileMd5());
                 diskMd5.setFileNum(redisChunkTemp.getChunks());
-                diskMd5.setFileSuffix(redisChunkTemp.getFilesuffix());
+                diskMd5.setFileSuffix(redisChunkTemp.getFileSuffix());
                 diskMd5.setFileSize(redisChunkTemp.getSize());
                 diskMd5.setTypeCode("0");
                 diskMd5.setQuoteNumber(1);
@@ -45,7 +45,7 @@ public class MergeSaveToDiskMd5Handler extends Handler {
 
                 updateRequest(bean);
             }else {
-                DiskMd5 diskMd5 = diskMd5Dao.findOne(bean.getFilemd5());
+                DiskMd5 diskMd5 = diskMd5Dao.findOne(bean.getFileMd5());
                 diskMd5Dao.quoteAddOne(diskMd5);
             }
         } else {

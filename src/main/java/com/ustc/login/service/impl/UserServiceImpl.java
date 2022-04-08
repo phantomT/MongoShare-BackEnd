@@ -13,6 +13,7 @@ import java.util.List;
 
 @Component
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService {
     private MongoTemplate mongoTemplate;
 
     /**
-     * 根据id查询用户
-     * @param id 用户id
+     * 根据用户id查询用户
+     * @param id  用户id
      * @return User
      */
     @Override
@@ -92,12 +93,11 @@ public class UserServiceImpl implements UserService {
      *
      */
     @Override
-    public boolean findUserByUsername(String username){
+    public boolean userIsExist(String username){
         // 查询条件
-        Query name = Query.query(Criteria.where("username").is(username));
+        Query name = Query.query(Criteria.where("userName").is(username));
         List<UserDO> user = mongoTemplate.find(name, UserDO.class);
-        if(user.isEmpty())return false;
-        else return true;
+        return !user.isEmpty();
     }
 
     /**
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getPasswordByUsername(String username){
         // 根据用户名查询用户
-        Query query = Query.query(Criteria.where("username").is(username));
+        Query query = Query.query(Criteria.where("userName").is(username));
         UserDO target = mongoTemplate.findOne(query, UserDO.class);
         return target.getPassword();
     }

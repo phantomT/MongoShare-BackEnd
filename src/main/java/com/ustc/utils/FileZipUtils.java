@@ -27,8 +27,7 @@ public class FileZipUtils {
     private static void delFile(String path) {
         File file = new File(path);
         File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            File f = files[i];
+        for (File f : files) {
             if (f.isFile()) {
                 f.delete();
             } else {
@@ -40,8 +39,7 @@ public class FileZipUtils {
 
     private static void dgDel(File file) {
         File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            File f = files[i];
+        for (File f : files) {
             if (f.isFile()) {
                 f.delete();
             } else {
@@ -69,7 +67,7 @@ public class FileZipUtils {
 
         zipOut.putNextEntry(new ZipEntry(baseDir + file.getName()));
         byte[] buffer = new byte[4096];
-        int readByte = -1;
+        int readByte;
         while ((readByte = input.read(buffer)) != -1) {
             zipOut.write(buffer, 0, readByte);
         }

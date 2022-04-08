@@ -58,7 +58,7 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(scanBasePackage("com.ustc.upload.controller" + SPLITOR +
                         "com.ustc.download.controller" + SPLITOR +
-                        "com.ustc.filecommon.controller" + SPLITOR +
+                        "com.ustc.fileCommon.controller" + SPLITOR +
                         "com.ustc.login.controller"))
                 .paths(PathSelectors.any())
                 // 构建出Docket对象

@@ -7,17 +7,17 @@ package com.ustc.entity;
  * @date 2022/03/07
  */
 public class SessionUserBean {
-    private String userId;
+    private String userName;
 
-    public SessionUserBean(String userId) {
-        this.userId = userId;
+    public SessionUserBean(String userName) {
+        this.userName = userName;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
