@@ -60,12 +60,12 @@ public class FileListDao {
 
     /**
      * 根据MD5查找Md5Chunk
-     * @param md5   md5
-     * @return List<DiskMd5Chunk>
+     * @param fileMd5   fileMd5
+     * @return 文件分片Chunks
      */
-    public List<DiskMd5Chunk> findDiskChunkByMd5(String md5){
+    public List<DiskMd5Chunk> findDiskChunkByMd5(String fileMd5){
         Query query = new Query();
-        query.addCriteria(Criteria.where("fileMd5").is(md5));
+        query.addCriteria(Criteria.where("fileMd5").is(fileMd5));
         return mongoTemplate.find(query, DiskMd5Chunk.class);
     }
 

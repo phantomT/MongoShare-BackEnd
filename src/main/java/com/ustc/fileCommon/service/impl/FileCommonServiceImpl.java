@@ -3,7 +3,7 @@ package com.ustc.fileCommon.service.impl;
 import com.ustc.chain.core.HandlerInitializer;
 import com.ustc.chain.core.Pipeline;
 import com.ustc.chain.core.ResponsibleChain;
-import com.ustc.chain.handler.*;
+import com.ustc.chain.handler.FileCommon.*;
 import com.ustc.chain.param.DeleteRequest;
 import com.ustc.chain.param.MoveRequest;
 import com.ustc.chain.param.RenameRequest;

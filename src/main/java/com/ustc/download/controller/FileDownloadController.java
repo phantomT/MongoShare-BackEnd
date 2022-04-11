@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * @author 田宝宁
- * @date 2022/04/07
+ * @date 2022/04/08
  */
 @Api(tags = {"文件下载"})
 @RestController
@@ -47,35 +47,15 @@ public class FileDownloadController {
 
     @ApiOperation(value = "单文件下载", notes = "单文件下载")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "fileId", value = "文件ID", dataType = "String", paramType = "query", required = true),
-            @ApiImplicitParam(name = "token", value = "token", dataType = "String", paramType = "query", required = true)
+            @ApiImplicitParam(name = "idJson", value = "文件ID列表", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "downloadName", value = "下载文件名", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "downloadSuffix", value = "下载文件后缀", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "token", value = "token", dataType = "String", paramType = "query")
     })
-    @GetMapping({"/download"})
-    public void download(String fileId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 根据文件id获取文件的md5值和文件名
-        FileBean fb = this.fileService.findOne(fileId);
-        String fileMd5 = fb.getFileMd5();
-        String filename = fb.getFilename();
-
-        String userAgent = request.getHeader("User-Agent");
-        if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
-            filename = URLEncoder.encode(filename, "UTF-8");
-        } else {
-            filename = new String(filename.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
-        }
-
-        response.setHeader("content-disposition", "attachment;filename=" + filename);
-        // 获取所有切块路径
-        List<String> urls = fileService.getChunksByFileMd5(fileMd5);
-        // 获取Servlet输出流
-        ServletOutputStream servletOutputStream = response.getOutputStream();
-        for (String url : urls) {
-            // 获取切块的字节数据
-            byte[] bytes = fileService.getBytesByUrl(storeConfiguration.getStorePath() + "/" + url);
-            servletOutputStream.write(bytes);
-            servletOutputStream.flush();
-        }
-        servletOutputStream.close();
+    @PostMapping({"/download"})
+    public void download(String downloadName, String downloadSuffix, String idJson, HttpServletResponse response) throws IOException {
+        fileService.downloadFile(idJson, downloadName, downloadSuffix, response);
+        System.out.println("文件下载完成" + downloadName);
     }
 
     @ApiOperation(value = "多文件下载-获取文件信息", notes = "是否大于1G(超过1G不支持)")
@@ -84,7 +64,7 @@ public class FileDownloadController {
             @ApiImplicitParam(name = "token", value = "token", dataTypeClass = String.class, paramType = "query", required = true)})
 
     @PostMapping({"/getDownloadInfo"})
-    public CommonResult<DownloadBean> getDownloadInfo(@RequestParam String idJson, HttpServletRequest request) {
+    public CommonResult<DownloadBean> getDownloadInfo(@RequestParam String idJson) {
         ValidateUtils.validate(idJson, "下载记录");
         String[] ids = idJson.split(",");
         List<String> fileIds = new ArrayList<>(Arrays.asList(ids));
@@ -109,13 +89,13 @@ public class FileDownloadController {
             @ApiImplicitParam(name = "downloadSuffix", value = "文件后缀", dataTypeClass = String.class, required = true)
     })
     @PostMapping({"/mergeFiles"})
-    public CommonResult<String> mergeFiles(String downloadName, String downloadSuffix, String idJson, HttpServletRequest request, HttpServletResponse response) {
+    public CommonResult<String> mergeFiles(String downloadName, String downloadSuffix, String idJson, HttpServletResponse response) {
         try {
             ValidateUtils.validate(downloadName, "下载文件名称");
             ValidateUtils.validate(downloadSuffix, "下载文件格式");
             ValidateUtils.validate(idJson, "下载记录");
             String[] fileIds = idJson.split(",");
-            String path = storeConfiguration.getStorePath() + "/" + "test" + "/" + downloadName;
+            String path = storeConfiguration.getStorePath() + "/downloadMerge/" + downloadName;
             File fileRootZip = new File(path + "." + downloadSuffix);
             if (fileRootZip.exists()) {
                 throw new RuntimeException("该下载名称已经存在,请更换一个!");
@@ -127,20 +107,20 @@ public class FileDownloadController {
                 throw new RuntimeException("该下载名称已经存在,请更换一个!");
             }
             for (String fileId : fileIds) {
-                FileBean bean = this.fileService.findOne(fileId);
+                FileBean bean = fileService.findOne(fileId);
                 // 如果是文件夹
                 if (bean.getFileType().equals(FileType.FOLDER.getTypeCode())) {
                     File file = new File(path + "/" + bean.getFilename());
                     if (!file.exists()) {
                         file.mkdirs();
                     }
-                    dgDownload("test", path + "/" + bean.getFilename(), bean.getId());
+                    dgDownload("ttbb", path + "/" + bean.getFilename(), bean.getId());
                 } else {
                     String filename = path + "/" + bean.getFilename();
                     FileOutputStream out = new FileOutputStream(filename);
-                    List<String> urls = this.fileService.getChunksByFileMd5(bean.getFileMd5());
+                    List<String> urls = fileService.getChunksByFileMd5(bean.getFileMd5());
                     for (String url : urls) {
-                        byte[] bytes = this.fileService.getBytesByUrl(storeConfiguration.getStorePath() + "/" + url);
+                        byte[] bytes = fileService.getBytesByUrl(storeConfiguration.getStorePath() + "/" + url);
                         out.write(bytes);
                         out.flush();
                     }
@@ -163,8 +143,8 @@ public class FileDownloadController {
         }
     }
 
-    private void dgDownload(String userid, String path, String pid) throws Exception {
-        List<FileBean> beans = this.fileService.findChildrenFiles(userid, pid);
+    private void dgDownload(String userName, String path, String pid) throws Exception {
+        List<FileBean> beans = this.fileService.findChildrenFiles(userName, pid);
         if (!CollectionUtils.isEmpty(beans)) {
             for (FileBean bean : beans) {
                 if (bean.getFileType() == 0) {
@@ -172,7 +152,7 @@ public class FileDownloadController {
                     if (!file.exists()) {
                         file.mkdirs();
                     }
-                    dgDownload(userid, path + "/" + bean.getFilename(), bean.getId());
+                    dgDownload(userName, path + "/" + bean.getFilename(), bean.getId());
                     continue;
                 }
                 String filename = path + "/" + bean.getFilename();

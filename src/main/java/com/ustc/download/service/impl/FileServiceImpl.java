@@ -1,25 +1,38 @@
 package com.ustc.download.service.impl;
 
+import com.ustc.chain.core.HandlerInitializer;
+import com.ustc.chain.core.Pipeline;
+import com.ustc.chain.core.ResponsibleChain;
+import com.ustc.chain.handler.Download.DownloadGetMd5Handler;
+import com.ustc.chain.handler.Download.DownloadMergeHandler;
+import com.ustc.chain.handler.Download.DownloadValidateHandler;
+import com.ustc.chain.param.DownloadRequest;
 import com.ustc.download.dao.FileListDao;
 import com.ustc.download.service.FileService;
 import com.ustc.entity.*;
 import com.ustc.utils.CapacityUtils;
+import com.ustc.utils.FileZipUtils;
+import com.ustc.utils.SpringContentUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 @Component
 public class FileServiceImpl implements FileService {
 
+    @Autowired
+    private SpringContentUtils scu;
     @Autowired
     private FileListDao fileListDao;
 
@@ -170,6 +183,50 @@ public class FileServiceImpl implements FileService {
         return bean;
     }
 
+    @Override
+    public void downloadFile(String idJson, String fileName, String fileSuffix, HttpServletResponse response) throws IOException {
+        List<String> idList = Arrays.asList(idJson.split(","));
+        DownloadRequest downRequest = new DownloadRequest(fileName, fileSuffix, idList, response);
+        ResponsibleChain chain = new ResponsibleChain();
+        chain.loadHandler(new HandlerInitializer(downRequest, null) {
+            @Override
+            protected void initChannel(Pipeline line) {
+                // 1.校验下载参数
+                line.addLast(scu.getHandler(DownloadValidateHandler.class));
+                // 2.获取MD5列表
+                line.addLast(scu.getHandler(DownloadGetMd5Handler.class));
+                // 3.根据MD5将文件合并到指定文件夹并根据情况压缩
+                line.addLast(scu.getHandler(DownloadMergeHandler.class));
+            }
+        });
+        chain.execute();
+
+        // TODO 2022/04/08 完成压缩下载和单文件删除
+        String filePath = downRequest.getFilePath();
+        InputStream inputStream = new FileInputStream(filePath);
+        fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+        ServletOutputStream outputStream = response.getOutputStream();
+        byte[] bytes = new byte[1024];
+        int len;
+        while((len = inputStream.read(bytes)) > 0) {
+            outputStream.write(bytes, 0, len);
+        }
+        inputStream.close();
+        outputStream.close();
+
+        // 删除下载完成的文件
+        File delPath = new File(filePath);
+        String delParentPath = delPath.getParent();
+        System.out.println("tempFile" + delParentPath);
+        if(downRequest.getCompressFile().equals(false)){
+            FileZipUtils.delFile(delParentPath);
+        }else{
+            delPath.delete();
+        }
+    }
+
     private void dgGetDownloadInfo(String id, DownloadBean bean) {
         List<FileBean> childrenFiles = findChildrenFiles(id);
         if (!CollectionUtils.isEmpty(childrenFiles)) {
@@ -183,5 +240,16 @@ public class FileServiceImpl implements FileService {
                 dgGetDownloadInfo(file.getId(), bean);
             }
         }
+    }
+
+    @Override
+    public void downloadToPath(String path, FileOutputStream fos) throws IOException {
+        FileInputStream fis = new FileInputStream(path);
+        byte[] buffer = new byte[1024];
+        int count;
+        while ((count = fis.read(buffer)) > 0) {
+            fos.write(buffer, 0, count);
+        }
+        fis.close();
     }
 }

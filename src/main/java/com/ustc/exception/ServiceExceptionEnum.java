@@ -26,6 +26,8 @@ public enum ServiceExceptionEnum {
     FILE_NOT_COMPLETE(1001002,"上传文件不完整"),
     FOLDER_CREATE_FAIL(1001002, "服务器创建文件夹失败"),
     // 下载模块
+    DOWNLOAD_PARAM_ERROR(1002001, "下载参数错误"),
+    DOWNLOAD_FAIL(1002002, "下载最终文件失败"),
     // 用户模块
     PASSWORD_WRONG(1003000,"密码错误"),
     // 工具类
@@ -34,8 +36,7 @@ public enum ServiceExceptionEnum {
     SAME_NAME_EXIST(1005000, "存在同名同类型记录"),
     MOVE_PARAM_ERROR(1005001, "移动请求参数不正确"),
     RENAME_PARAM_ERROR(1005002, "移动请求参数不正确"),
-    FILE_NOT_EXIST(1005003,"后台不存在相关文件记录")
-    ;
+    FILE_NOT_EXIST(1005003,"后台不存在相关文件记录");
 
     /**
      * 错误码

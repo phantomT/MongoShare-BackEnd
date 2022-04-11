@@ -2,6 +2,8 @@ package com.ustc.download.service;
 
 import com.ustc.entity.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,12 +40,32 @@ public interface FileService {
 
   /**
    * 通过文件md5得到切块列表
-   * @param paramString 文件md5
+   * @param fileMd5 文件md5
    * @return 切块列表
    */
-  List<String> getChunksByFileMd5(String paramString);
+  List<String> getChunksByFileMd5(String fileMd5);
   
   byte[] getBytesByUrl(String paramString) throws IOException;
-  
-  DownloadBean getDownloadInfo(List<String> paramList);
+
+  /**
+   * 通过文件id列表获取下载Bean
+   * @param fileIds 文件id
+   * @return DownloadBean
+   */
+  DownloadBean getDownloadInfo(List<String> fileIds);
+
+  /**
+   * 下载文件
+   * @param idJson      文件id列表
+   * @param fileName    下载文件名
+   * @param fileSuffix  下载文件后缀
+   */
+  void downloadFile(String idJson, String fileName, String fileSuffix, HttpServletResponse response) throws IOException;
+
+  /**
+   * 下载到目的地址
+   * @param path  地址
+   * @param fos   输出文件
+   */
+  void downloadToPath(String path, FileOutputStream fos) throws IOException;
 }

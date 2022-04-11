@@ -4,7 +4,11 @@ import com.google.common.collect.Interner;
 import com.ustc.chain.core.HandlerInitializer;
 import com.ustc.chain.core.Pipeline;
 import com.ustc.chain.core.ResponsibleChain;
-import com.ustc.chain.handler.*;
+import com.ustc.chain.handler.Chunk.ChunkRedisHandler;
+import com.ustc.chain.handler.Chunk.ChunkStoreHandler;
+import com.ustc.chain.handler.Chunk.ChunkValidateHandler;
+import com.ustc.chain.handler.Merge.*;
+import com.ustc.chain.handler.UrlUp.*;
 import com.ustc.chain.param.ChunkRequest;
 import com.ustc.chain.param.MergeRequest;
 import com.ustc.chain.param.UrlUploadRequest;
@@ -52,11 +56,9 @@ public class UploadFileServiceImpl implements UploadFileService {
             protected void initChannel(Pipeline line) {
                 // 3.1 参数校验
                 line.addLast(scu.getHandler(ChunkValidateHandler.class));
-                // 3.2 校验是否支持对应格式
-                // line.addLast(new ChunkFileSuffixHandler());
-                // 3.3 切块存储
+                // 3.2 切块存储
                 line.addLast(scu.getHandler(ChunkStoreHandler.class));
-                // 3.4 保存记录至Redis
+                // 3.3 保存记录至Redis
                 line.addLast(scu.getHandler(ChunkRedisHandler.class));
             }
         });

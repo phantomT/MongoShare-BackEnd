@@ -9,67 +9,83 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * @author 田宝宁
- * @date 2022/03/07
+ * @date 2022/04/10
  */
 public class FileZipUtils {
-    public static void fileToZip(String sourceFilePath, String zipPath) {
+    /**
+     * 压缩文件夹
+     * @param sourcePath    源文件夹路径
+     * @param zipPath       压缩文件保存路径
+     */
+    public static void fileToZip(String sourcePath, String zipPath) {
         try {
             File zipFile = new File(zipPath);
             ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
-            recursionZip(sourceFilePath, "", zipOut);
+            recursionZip(sourcePath, "", zipOut);
             zipOut.close();
-            delFile(sourceFilePath);
+            delFile(sourcePath);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    private static void delFile(String path) {
+    public static void delFile(String path) {
         File file = new File(path);
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isFile()) {
                 f.delete();
             } else {
-                dgDel(f);
+                recursionDel(f);
             }
         }
         file.delete();
     }
 
-    private static void dgDel(File file) {
+    private static void recursionDel(File file) {
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isFile()) {
                 f.delete();
             } else {
-                dgDel(f);
+                recursionDel(f);
             }
         }
         file.delete();
     }
 
-
-    public static void recursionZip(String filePath, String baseDir, ZipOutputStream zipOut) throws Exception {
+    /**
+     * 递归压缩文件
+     * @param filePath      文件路径
+     * @param relativePath  相对路径
+     * @param zipOut        输出流
+     */
+    public static void recursionZip(String filePath, String relativePath, ZipOutputStream zipOut) throws Exception {
         File srcFile = new File(filePath);
         File[] files = srcFile.listFiles();
         for (File file : files) {
             if (file.isFile()) {
-                zipFile(file, baseDir, zipOut);
+                zipFile(file, relativePath, zipOut);
             } else {
-                recursionZip(filePath + File.separator + file.getName(), baseDir + file.getName() + File.separator, zipOut);
+                recursionZip(filePath + "/" + file.getName(),
+                        relativePath + "/" + file.getName(), zipOut);
             }
         }
     }
 
-    public static void zipFile(File file, String baseDir, ZipOutputStream zipOut) throws Exception {
+    /**
+     * 压缩执行函数
+     * @param file          待压缩文件
+     * @param relativePath  相对路径
+     * @param zipOut        输出流
+     */
+    public static void zipFile(File file, String relativePath, ZipOutputStream zipOut) throws Exception {
         InputStream input = new FileInputStream(file);
-
-        zipOut.putNextEntry(new ZipEntry(baseDir + file.getName()));
-        byte[] buffer = new byte[4096];
-        int readByte;
-        while ((readByte = input.read(buffer)) != -1) {
-            zipOut.write(buffer, 0, readByte);
+        zipOut.putNextEntry(new ZipEntry(relativePath + "/" + file.getName()));
+        byte[] buffer = new byte[1024];
+        int readLen;
+        while ((readLen = input.read(buffer)) != -1) {
+            zipOut.write(buffer, 0, readLen);
         }
         input.close();
         zipOut.closeEntry();

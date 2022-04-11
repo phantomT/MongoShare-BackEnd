@@ -7,7 +7,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import java.io.IOException;
 
 /**
- * @author 田宝宁
+ * @author 王博
  * @date 2022/03/07
  */
 public interface FileSearchService {

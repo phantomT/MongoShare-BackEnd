@@ -1,6 +1,7 @@
 package com.ustc.upload.service.impl;
 
 import com.ustc.config.StoreConfiguration;
+import com.ustc.download.service.FileService;
 import com.ustc.entity.UrlFileBean;
 import com.ustc.exception.ServiceException;
 import com.ustc.exception.ServiceExceptionEnum;
@@ -28,6 +29,8 @@ public class StoreServiceImpl implements UploadStoreService {
 
     @Autowired
     private StoreConfiguration storeConfiguration;
+    @Autowired
+    private FileService fileService;
 
     @Override
     public String upload(byte[] bytes, String filename) {
@@ -189,13 +192,7 @@ public class StoreServiceImpl implements UploadStoreService {
         // 定义文件输出流
         FileOutputStream fos = new FileOutputStream(storePath + "/checkMd5/" + fileName + "." + fileSuffix);
         for (int i = 0; i < blockNum; i++) {
-            FileInputStream fis = new FileInputStream(storePath + "/" + pathList.get(i));
-            byte[] buffer = new byte[1024];
-            int count;
-            while ((count = fis.read(buffer)) > 0) {
-                fos.write(buffer, 0, count);
-            }
-            fis.close();
+            fileService.downloadToPath(storePath + "/" + pathList.get(i), fos);
         }
         fos.close();
 
