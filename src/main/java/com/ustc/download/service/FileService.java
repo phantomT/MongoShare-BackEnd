@@ -7,6 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author 田宝宁
+ * @date 2022/04/08
+ */
 public interface FileService {
   /**
    * 文件列表分页
@@ -33,19 +37,13 @@ public interface FileService {
    * @return FileBean类
    */
   FileBean diskFileToFileBean(DiskFile diskFile);
-  
-  List<FileBean> findChildrenFiles(String userName, String folderId);
-  
-  List<FileBean> findChildrenFiles(String folderId);
 
   /**
-   * 通过文件md5得到切块列表
-   * @param fileMd5 文件md5
-   * @return 切块列表
+   * 查找子文件
+   * @param folderId  文件夹ID
+   * @return List<FileBean>
    */
-  List<String> getChunksByFileMd5(String fileMd5);
-  
-  byte[] getBytesByUrl(String paramString) throws IOException;
+  List<FileBean> findChildrenFiles(String folderId);
 
   /**
    * 通过文件id列表获取下载Bean

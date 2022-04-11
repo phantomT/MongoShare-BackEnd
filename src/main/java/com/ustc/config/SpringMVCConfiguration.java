@@ -13,11 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class SpringMVCConfiguration implements WebMvcConfigurer {
 
-    /**
-     * 不使用@CrossOrigin注解和addCorsMappings方法是因为防止和拦截器冲突
-     * 跨域设置失效
-     */
-
+    //不使用@CrossOrigin注解和addCorsMappings方法是因为防止和拦截器冲突
+    //跨域设置失效
     /**
      * 跨域支持
      * @param registry  跨域注册

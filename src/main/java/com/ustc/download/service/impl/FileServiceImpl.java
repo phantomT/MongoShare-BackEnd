@@ -3,31 +3,30 @@ package com.ustc.download.service.impl;
 import com.ustc.chain.core.HandlerInitializer;
 import com.ustc.chain.core.Pipeline;
 import com.ustc.chain.core.ResponsibleChain;
-import com.ustc.chain.handler.Download.DownloadGetMd5Handler;
-import com.ustc.chain.handler.Download.DownloadMergeHandler;
-import com.ustc.chain.handler.Download.DownloadValidateHandler;
+import com.ustc.chain.handler.Download.*;
 import com.ustc.chain.param.DownloadRequest;
 import com.ustc.download.dao.FileListDao;
 import com.ustc.download.service.FileService;
 import com.ustc.entity.*;
 import com.ustc.utils.CapacityUtils;
-import com.ustc.utils.FileZipUtils;
 import com.ustc.utils.SpringContentUtils;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
+/**
+ * @author 田宝宁
+ * @date 2022/04/08
+ */
 @Component
 public class FileServiceImpl implements FileService {
 
@@ -126,11 +125,6 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileBean> findChildrenFiles(String userName, String folderId) {
-        return findChildrenFiles(folderId);
-    }
-
-    @Override
     public List<FileBean> findChildrenFiles(String folderId) {
         List<FileBean> children = new ArrayList<>();
         List<DiskFile> files = fileListDao.findDiskFileByPid(folderId);
@@ -140,25 +134,6 @@ public class FileServiceImpl implements FileService {
             }
         }
         return children;
-    }
-
-    @Override
-    public List<String> getChunksByFileMd5(String fileMd5) {
-        List<String> urls = new ArrayList<>();
-        List<DiskMd5Chunk> chunks = fileListDao.findDiskChunkByMd5(fileMd5);
-        chunks.sort(Comparator.comparingInt(DiskMd5Chunk::getChunkNumber));
-        for (DiskMd5Chunk chunk : chunks) {
-            urls.add(chunk.getStorePath());
-        }
-        return urls;
-    }
-
-    @Override
-    public byte[] getBytesByUrl(String url) throws IOException {
-        FileInputStream input = new FileInputStream(url);
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        IOUtils.copyLarge(input, output);
-        return output.toByteArray();
     }
 
     @Override
@@ -178,9 +153,29 @@ public class FileServiceImpl implements FileService {
             } else if (file.getFileType() == 0) {
                 bean.setFolderNum(bean.getFolderNum() + 1);
             }
-            dgGetDownloadInfo(file.getId().toString(), bean);
+            recGetDownloadInfo(file.getId().toString(), bean);
         }
         return bean;
+    }
+
+    /**
+     * 递归获取下载信息
+     * @param id    文件ID
+     * @param bean  Download Bean
+     */
+    private void recGetDownloadInfo(String id, DownloadBean bean) {
+        List<FileBean> childrenFiles = findChildrenFiles(id);
+        if (!CollectionUtils.isEmpty(childrenFiles)) {
+            for (FileBean file : childrenFiles) {
+                bean.setTotalSize(bean.getTotalSize() + file.getFileSize());
+                if (file.getFileType() == 1) {
+                    bean.setFileNum(bean.getFileNum() + 1);
+                } else if (file.getFileType() == 0) {
+                    bean.setFolderNum(bean.getFolderNum() + 1);
+                }
+                recGetDownloadInfo(file.getId(), bean);
+            }
+        }
     }
 
     @Override
@@ -197,50 +192,13 @@ public class FileServiceImpl implements FileService {
                 line.addLast(scu.getHandler(DownloadGetMd5Handler.class));
                 // 3.根据MD5将文件合并到指定文件夹并根据情况压缩
                 line.addLast(scu.getHandler(DownloadMergeHandler.class));
+                // 4.使用httpResponse传输文件
+                line.addLast(scu.getHandler(DownloadResponseHandler.class));
+                // 5.删除缓存
+                line.addLast(scu.getHandler(DownloadClearBufferHandler.class));
             }
         });
         chain.execute();
-
-        // TODO 2022/04/11 完成文件删除
-        String filePath = downRequest.getFilePath();
-        InputStream inputStream = new FileInputStream(filePath);
-        fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-        response.setContentType("application/octet-stream");
-        ServletOutputStream outputStream = response.getOutputStream();
-        byte[] bytes = new byte[1024];
-        int len;
-        while((len = inputStream.read(bytes)) > 0) {
-            outputStream.write(bytes, 0, len);
-        }
-        inputStream.close();
-        outputStream.close();
-
-        // 删除下载完成的文件
-        File delPath = new File(filePath);
-        String delParentPath = delPath.getParent();
-        System.out.println("tempFile" + delParentPath);
-        if(downRequest.getCompressFile().equals(false)){
-            FileZipUtils.delFile(delParentPath);
-        }else{
-            delPath.delete();
-        }
-    }
-
-    private void dgGetDownloadInfo(String id, DownloadBean bean) {
-        List<FileBean> childrenFiles = findChildrenFiles(id);
-        if (!CollectionUtils.isEmpty(childrenFiles)) {
-            for (FileBean file : childrenFiles) {
-                bean.setTotalSize(bean.getTotalSize() + file.getFileSize());
-                if (file.getFileType() == 1) {
-                    bean.setFileNum(bean.getFileNum() + 1);
-                } else if (file.getFileType() == 0) {
-                    bean.setFolderNum(bean.getFolderNum() + 1);
-                }
-                dgGetDownloadInfo(file.getId(), bean);
-            }
-        }
     }
 
     @Override
