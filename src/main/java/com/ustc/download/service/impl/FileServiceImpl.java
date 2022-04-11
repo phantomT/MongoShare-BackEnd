@@ -201,12 +201,13 @@ public class FileServiceImpl implements FileService {
         });
         chain.execute();
 
-        // TODO 2022/04/08 完成压缩下载和单文件删除
+        // TODO 2022/04/11 完成文件删除
         String filePath = downRequest.getFilePath();
         InputStream inputStream = new FileInputStream(filePath);
         fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
         response.setContentType("application/octet-stream");
-        response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
         ServletOutputStream outputStream = response.getOutputStream();
         byte[] bytes = new byte[1024];
         int len;
