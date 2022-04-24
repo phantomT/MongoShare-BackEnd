@@ -77,6 +77,10 @@ public class FileDownloadController {
         }
         return CommonResultUtils.success(bean);
     }
+    /**
+     * @author 刘玄亮
+     * @date 2022/04/11
+     */
     @ApiOperation(value = "文件预览", notes = "文件预览")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fileMd5", value = "文件md5", dataType = "String", paramType = "query", required = true),
