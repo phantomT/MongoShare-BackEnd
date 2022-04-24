@@ -211,4 +211,10 @@ public class FileServiceImpl implements FileService {
         }
         fis.close();
     }
+
+    @Override
+    public List<DiskMd5Chunk> findStorePath(String Md5) throws IOException {
+
+        return fileListDao.findDiskChunkByMd5(Md5);
+    }
 }

@@ -66,4 +66,11 @@ public interface FileService {
    * @param fos   输出文件
    */
   void downloadToPath(String path, FileOutputStream fos) throws IOException;
+
+  /**
+   * 根据id获得地址
+   * @param Md5  地址
+   *
+   */
+  List<DiskMd5Chunk> findStorePath(String Md5) throws IOException;
 }

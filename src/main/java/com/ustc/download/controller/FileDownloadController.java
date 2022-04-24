@@ -1,6 +1,7 @@
 package com.ustc.download.controller;
 
 import com.ustc.download.service.FileService;
+import com.ustc.entity.DiskMd5Chunk;
 import com.ustc.entity.DownloadBean;
 import com.ustc.utils.CapacityUtils;
 import com.ustc.utils.CommonResult;
@@ -76,4 +77,19 @@ public class FileDownloadController {
         }
         return CommonResultUtils.success(bean);
     }
+    @ApiOperation(value = "文件预览", notes = "文件预览")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fileMd5", value = "文件md5", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "token", value = "token", dataType = "String", paramType = "query")
+    })
+    @PostMapping({"/preview"})
+    public CommonResult<String> preview(@RequestParam String fileMd5) throws IOException{
+        List<DiskMd5Chunk> chunks = fileService.findStorePath(fileMd5);
+        String url = chunks.get(0).getStorePath();
+        //String ur=fileService.previewFile(fileMd5);
+        return CommonResultUtils.success(url);
+    }
+
+
+
 }
