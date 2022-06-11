@@ -74,7 +74,7 @@ public class StoreServiceImpl implements UploadStoreService {
         bean.setFileName(fileName);
 
         // 设置分块大小
-        int blockSize = 1024 * 1024;
+        int blockSize = 1024 * 1024 * 5;
 
         URL upUrl = new URL(fileUrl);
         // 获取连接

@@ -1,5 +1,6 @@
 package com.ustc.upload.service;
 
+import com.ustc.entity.FileListBean;
 import com.ustc.entity.FileSearchBean;
 import com.ustc.entity.PageInfo;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -7,20 +8,23 @@ import org.apache.solr.client.solrj.SolrServerException;
 import java.io.IOException;
 
 /**
- * @author 王博
- * @date 2022/03/07
+ * @author 田宝宁 王博
+ * @date 2022/06/11
  */
 public interface FileSearchService {
     /**
-     * 查找文件
+     * 搜索文件
      *
-     * @param fileName  文件名
-     * @param userName  用户名
-     * @param page      页数
-     * @param limit     每页记录数
-     * @return 文件
+     * @param page          当前页数（从1开始）
+     * @param limit         分页记录数
+     * @param keyWord       搜索关键词
+     * @param searchField   搜索域
+     * @param orderField    排序字段
+     * @param orderType     排序类型
+     * @return              本页所有文件信息
      */
-    PageInfo<FileSearchBean> search(String fileName, String userName, Integer page, Integer limit) throws Exception;
+    PageInfo<FileListBean> findPageList(Integer page, Integer limit, String keyWord, String searchField,
+                                        String orderField, String orderType);
 
     /**
      * 添加一项记录
